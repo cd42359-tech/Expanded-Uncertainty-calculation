@@ -97,3 +97,40 @@ st.write(
     "Error :",
     round(error, 6)
 )
+resolution_u = least_count / (2 * np.sqrt(3))
+
+st.write(
+    "Resolution Uncertainty :",
+    round(resolution_u, 6)
+)
+# Reference standard contributors from Caliper budget
+
+acc_checker = 0.002887
+unc_checker = 0.001900
+
+# Simplified temperature contribution
+temp_u = 0.000432
+
+# Combined Uncertainty (RSS Method)
+
+combined_u = np.sqrt(
+    repeatability_u**2 +
+    resolution_u**2 +
+    acc_checker**2 +
+    unc_checker**2 +
+    temp_u**2
+)
+
+st.write(
+    "Combined Uncertainty :",
+    round(combined_u, 6)
+)
+
+# Expanded Uncertainty
+
+expanded_u = 2 * combined_u
+
+st.write(
+    "Expanded Uncertainty :",
+    round(expanded_u, 6)
+)
