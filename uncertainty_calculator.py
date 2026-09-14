@@ -149,60 +149,32 @@ else:  # 600 mm (LC 0.02)
 # Display Contributors
 # --------------------------------------------------
 
-st.subheader("Uncertainty Contributors")
+st.subheader("Uncertainty Budget Summary")
 
-st.write(
-    "Repeatability U :",
-    round(repeatability_u, 6)
+budget_df = pd.DataFrame({
+    "Contributor": [
+        "Repeatability U",
+        "Resolution U",
+        "Checker Accuracy U",
+        "Checker Certificate U",
+        "Temperature U"
+    ],
+    "Value": [
+        round(repeatability_u, 6),
+        round(resolution_u, 6),
+        round(acc_checker, 6),
+        round(unc_checker, 6),
+        round(temp_u, 6)
+    ]
+})
+
+st.dataframe(
+    budget_df,
+    use_container_width=True
 )
 
-st.write(
-    "Resolution U :",
-    round(resolution_u, 6)
-)
+st.success(f"""
+Combined Uncertainty : {combined_u:.6f}
 
-st.write(
-    "Checker Accuracy U :",
-    round(acc_checker, 6)
-)
-
-st.write(
-    "Checker Certificate U :",
-    round(unc_checker, 6)
-)
-
-st.write(
-    "Temperature U :",
-    round(temp_u, 6)
-)
-
-
-# --------------------------------------------------
-# Combined Uncertainty
-# --------------------------------------------------
-
-combined_u = np.sqrt(
-    repeatability_u**2 +
-    resolution_u**2 +
-    acc_checker**2 +
-    unc_checker**2 +
-    temp_u**2
-)
-
-st.write(
-    "Combined Uncertainty :",
-    round(combined_u, 6)
-)
-
-
-# --------------------------------------------------
-# Expanded Uncertainty
-# --------------------------------------------------
-
-expanded_u = 2 * combined_u
-
-st.write(
-    "Expanded Uncertainty :",
-    round(expanded_u, 6)
-)
-
+Expanded Uncertainty : {expanded_u:.6f}
+""")
