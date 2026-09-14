@@ -79,3 +79,9 @@ readings = [r1, r2, r3, r4, r5]
 
 mean_reading = np.mean(readings)
 st.write("Mean Reading :", round(mean_reading, 6))
+std_dev = np.std(readings, ddof=1)
+
+st.write(
+    "Standard Deviation :",
+    round(std_dev, 6)
+)
