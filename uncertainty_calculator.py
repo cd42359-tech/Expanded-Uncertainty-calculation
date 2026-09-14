@@ -79,6 +79,13 @@ readings = [r1, r2, r3, r4, r5]
 
 mean_reading = np.mean(readings)
 st.subheader("Measurement Summary")
+std_dev = np.std(readings, ddof=1)
+
+repeatability_u = std_dev / np.sqrt(5)
+
+error = mean_reading - nominal_size
+
+resolution_u = least_count / (2 * np.sqrt(3))
 
 summary_df = pd.DataFrame({
     "Parameter": [
