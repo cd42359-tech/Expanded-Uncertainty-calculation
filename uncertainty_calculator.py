@@ -172,7 +172,15 @@ st.dataframe(
     budget_df,
     use_container_width=True
 )
+combined_u = np.sqrt(
+    repeatability_u**2 +
+    resolution_u**2 +
+    acc_checker**2 +
+    unc_checker**2 +
+    temp_u**2
+)
 
+expanded_u = 2 * combined_u
 st.success(f"""
 Combined Uncertainty : {combined_u:.6f}
 
