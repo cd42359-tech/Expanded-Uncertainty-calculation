@@ -85,3 +85,9 @@ st.write(
     "Standard Deviation :",
     round(std_dev, 6)
 )
+repeatability_u = std_dev / np.sqrt(5)
+
+st.write(
+    "Repeatability Uncertainty :",
+    round(repeatability_u, 6)
+)
