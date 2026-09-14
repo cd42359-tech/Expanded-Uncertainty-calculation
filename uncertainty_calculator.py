@@ -104,6 +104,9 @@ st.write(
     round(resolution_u, 6)
 )
 # Reference standard contributors from Caliper budget
+# --------------------------------------------------
+# Caliper Uncertainty Contributors
+# --------------------------------------------------
 
 if nominal_size == 150:
 
@@ -135,75 +138,74 @@ elif nominal_size == 300 and least_count == 0.02:
     unc_checker = 0.001900
     temp_u = 0.000863
 
-else:
-
-    if nominal_size == 150:
-
-    acc_checker = 0.002887
-    unc_checker = 0.001900
-    temp_u = 0.000432
-
-elif nominal_size == 200 and least_count == 0.01:
-
-    acc_checker = 0.002887
-    unc_checker = 0.001900
-    temp_u = 0.000576
-
-elif nominal_size == 200 and least_count == 0.02:
-
-    acc_checker = 0.002887
-    unc_checker = 0.001900
-    temp_u = 0.000576
-
-elif nominal_size == 300 and least_count == 0.01:
-
-    acc_checker = 0.002887
-    unc_checker = 0.001900
-    temp_u = 0.000863
-
-elif nominal_size == 300 and least_count == 0.02:
-
-    acc_checker = 0.002887
-    unc_checker = 0.001900
-    temp_u = 0.000863
-
-else:
-
-    if nominal_size == 150:
-
-    acc_checker = 0.002887
-    unc_checker = 0.001900
-    temp_u = 0.000432
-
-elif nominal_size == 200 and least_count == 0.01:
-
-    acc_checker = 0.002887
-    unc_checker = 0.001900
-    temp_u = 0.000576
-
-elif nominal_size == 200 and least_count == 0.02:
-
-    acc_checker = 0.002887
-    unc_checker = 0.001900
-    temp_u = 0.000576
-
-elif nominal_size == 300 and least_count == 0.01:
-
-    acc_checker = 0.002887
-    unc_checker = 0.001900
-    temp_u = 0.000863
-
-elif nominal_size == 300 and least_count == 0.02:
-
-    acc_checker = 0.002887
-    unc_checker = 0.001900
-    temp_u = 0.000863
-
-else:
+else:  # 600 mm (LC 0.02)
 
     acc_checker = 0.002887
     unc_checker = 0.001900
     temp_u = 0.000266
+
+
+# --------------------------------------------------
+# Display Contributors
+# --------------------------------------------------
+
+st.subheader("Uncertainty Contributors")
+
+st.write(
+    "Repeatability U :",
+    round(repeatability_u, 6)
+)
+
+st.write(
+    "Resolution U :",
+    round(resolution_u, 6)
+)
+
+st.write(
+    "Checker Accuracy U :",
+    round(acc_checker, 6)
+)
+
+st.write(
+    "Checker Certificate U :",
+    round(unc_checker, 6)
+)
+
+st.write(
+    "Temperature U :",
+    round(temp_u, 6)
+)
+
+
+# --------------------------------------------------
+# Combined Uncertainty
+# --------------------------------------------------
+
+combined_u = np.sqrt(
+    repeatability_u**2 +
+    resolution_u**2 +
+    acc_checker**2 +
+    unc_checker**2 +
+    temp_u**2
+)
+
+st.write(
+    "Combined Uncertainty :",
+    round(combined_u, 6)
+)
+
+
+# --------------------------------------------------
+# Expanded Uncertainty
+# --------------------------------------------------
+
+expanded_u = 2 * combined_u
+
+st.write(
+    "Expanded Uncertainty :",
+    round(expanded_u, 6)
+)
+
 st.subheader("Uncertainty Contributors")
 
 st.write("Repeatability U :", round(repeatability_u, 6))
