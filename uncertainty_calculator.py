@@ -91,3 +91,9 @@ st.write(
     "Repeatability Uncertainty :",
     round(repeatability_u, 6)
 )
+error = mean_reading - nominal_size
+
+st.write(
+    "Error :",
+    round(error, 6)
+)
