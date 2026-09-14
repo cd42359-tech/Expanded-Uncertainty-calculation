@@ -78,31 +78,30 @@ r5 = st.number_input(
 readings = [r1, r2, r3, r4, r5]
 
 mean_reading = np.mean(readings)
-st.write("Mean Reading :", round(mean_reading, 6))
-std_dev = np.std(readings, ddof=1)
+st.subheader("Measurement Summary")
 
-st.write(
-    "Standard Deviation :",
-    round(std_dev, 6)
-)
-repeatability_u = std_dev / np.sqrt(5)
+summary_df = pd.DataFrame({
+    "Parameter": [
+        "Mean Reading",
+        "Standard Deviation",
+        "Repeatability U",
+        "Error",
+        "Resolution U"
+    ],
+    "Value": [
+        round(mean_reading, 6),
+        round(std_dev, 6),
+        round(repeatability_u, 6),
+        round(error, 6),
+        round(resolution_u, 6)
+    ]
+})
 
-st.write(
-    "Repeatability Uncertainty :",
-    round(repeatability_u, 6)
+st.dataframe(
+    summary_df,
+    use_container_width=True
 )
-error = mean_reading - nominal_size
 
-st.write(
-    "Error :",
-    round(error, 6)
-)
-resolution_u = least_count / (2 * np.sqrt(3))
-
-st.write(
-    "Resolution Uncertainty :",
-    round(resolution_u, 6)
-)
 # Reference standard contributors from Caliper budget
 # --------------------------------------------------
 # Caliper Uncertainty Contributors
