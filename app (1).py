@@ -31,5 +31,5 @@ if st.button("Predict Expanded Uncertainty"):
     prediction = model.predict(input_data)
 
     st.success(
-        f"Predicted Expanded Uncertainty: {prediction.6f}"
+        f"Predicted Expanded Uncertainty: {prediction[0]:.6f}"
     )
