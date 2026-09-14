@@ -206,26 +206,3 @@ st.write(
     round(expanded_u, 6)
 )
 
-# Combined Uncertainty (RSS Method)
-
-combined_u = np.sqrt(
-    repeatability_u**2 +
-    resolution_u**2 +
-    acc_checker**2 +
-    unc_checker**2 +
-    temp_u**2
-)
-
-st.write(
-    "Combined Uncertainty :",
-    round(combined_u, 6)
-)
-
-# Expanded Uncertainty
-
-expanded_u = 2 * combined_u
-
-st.write(
-    "Expanded Uncertainty :",
-    round(expanded_u, 6)
-)
