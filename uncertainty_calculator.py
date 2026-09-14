@@ -46,3 +46,32 @@ else:
 st.write("Nominal Size :", nominal_size)
 
 st.write("Least Count :", least_count)
+st.subheader("Input Measurements")
+temp = st.number_input(
+    "Temperature (°C)",
+    value=20.0
+)
+r1 = st.number_input(
+    "Reading 1",
+    value=float(nominal_size)
+)
+
+r2 = st.number_input(
+    "Reading 2",
+    value=float(nominal_size)
+)
+
+r3 = st.number_input(
+    "Reading 3",
+    value=float(nominal_size)
+)
+
+r4 = st.number_input(
+    "Reading 4",
+    value=float(nominal_size)
+)
+
+r5 = st.number_input(
+    "Reading 5",
+    value=float(nominal_size)
+)
