@@ -101,7 +101,6 @@ st.dataframe(
     summary_df,
     use_container_width=True
 )
-
 # Reference standard contributors from Caliper budget
 # --------------------------------------------------
 # Caliper Uncertainty Contributors
