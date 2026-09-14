@@ -7,7 +7,12 @@ st.title("Calibration Uncertainty Calculator")
 st.subheader("Caliper Uncertainty Calculation")
 instrument = st.selectbox(
     "Select Instrument Type",
-    ["Caliper"]
+    [
+        "Caliper",
+        "Micrometer",
+        "Plug Gauge",
+        "Plunger Dial"
+    ]
 )
 option = st.selectbox(
     "Select Nominal Size",
