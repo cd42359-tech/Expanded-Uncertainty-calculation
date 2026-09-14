@@ -206,13 +206,6 @@ st.write(
     round(expanded_u, 6)
 )
 
-st.subheader("Uncertainty Contributors")
-
-st.write("Repeatability U :", round(repeatability_u, 6))
-st.write("Resolution U :", round(resolution_u, 6))
-st.write("Caliper Checker Accuracy U :", round(acc_checker, 6))
-st.write("Caliper Checker Certificate U :", round(unc_checker, 6))
-st.write("Temperature U :", round(temp_u, 6))
 # Combined Uncertainty (RSS Method)
 
 combined_u = np.sqrt(
