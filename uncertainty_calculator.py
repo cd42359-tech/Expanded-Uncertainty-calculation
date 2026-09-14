@@ -105,12 +105,112 @@ st.write(
 )
 # Reference standard contributors from Caliper budget
 
-acc_checker = 0.002887
-unc_checker = 0.001900
+if nominal_size == 150:
 
-# Simplified temperature contribution
-temp_u = 0.000432
+    acc_checker = 0.002887
+    unc_checker = 0.001900
+    temp_u = 0.000432
 
+elif nominal_size == 200 and least_count == 0.01:
+
+    acc_checker = 0.002887
+    unc_checker = 0.001900
+    temp_u = 0.000576
+
+elif nominal_size == 200 and least_count == 0.02:
+
+    acc_checker = 0.002887
+    unc_checker = 0.001900
+    temp_u = 0.000576
+
+elif nominal_size == 300 and least_count == 0.01:
+
+    acc_checker = 0.002887
+    unc_checker = 0.001900
+    temp_u = 0.000863
+
+elif nominal_size == 300 and least_count == 0.02:
+
+    acc_checker = 0.002887
+    unc_checker = 0.001900
+    temp_u = 0.000863
+
+else:
+
+    if nominal_size == 150:
+
+    acc_checker = 0.002887
+    unc_checker = 0.001900
+    temp_u = 0.000432
+
+elif nominal_size == 200 and least_count == 0.01:
+
+    acc_checker = 0.002887
+    unc_checker = 0.001900
+    temp_u = 0.000576
+
+elif nominal_size == 200 and least_count == 0.02:
+
+    acc_checker = 0.002887
+    unc_checker = 0.001900
+    temp_u = 0.000576
+
+elif nominal_size == 300 and least_count == 0.01:
+
+    acc_checker = 0.002887
+    unc_checker = 0.001900
+    temp_u = 0.000863
+
+elif nominal_size == 300 and least_count == 0.02:
+
+    acc_checker = 0.002887
+    unc_checker = 0.001900
+    temp_u = 0.000863
+
+else:
+
+    if nominal_size == 150:
+
+    acc_checker = 0.002887
+    unc_checker = 0.001900
+    temp_u = 0.000432
+
+elif nominal_size == 200 and least_count == 0.01:
+
+    acc_checker = 0.002887
+    unc_checker = 0.001900
+    temp_u = 0.000576
+
+elif nominal_size == 200 and least_count == 0.02:
+
+    acc_checker = 0.002887
+    unc_checker = 0.001900
+    temp_u = 0.000576
+
+elif nominal_size == 300 and least_count == 0.01:
+
+    acc_checker = 0.002887
+    unc_checker = 0.001900
+    temp_u = 0.000863
+
+elif nominal_size == 300 and least_count == 0.02:
+
+    acc_checker = 0.002887
+    unc_checker = 0.001900
+    temp_u = 0.000863
+
+else:
+
+    acc_checker = 0.002887
+    unc_checker = 0.001900
+    temp_u = 0.000266
+st.subheader("Uncertainty Contributors")
+
+st.write("Repeatability U :", round(repeatability_u, 6))
+st.write("Resolution U :", round(resolution_u, 6))
+st.write("Caliper Checker Accuracy U :", round(acc_checker, 6))
+st.write("Caliper Checker Certificate U :", round(unc_checker, 6))
+st.write("Temperature U :", round(temp_u, 6))
 # Combined Uncertainty (RSS Method)
 
 combined_u = np.sqrt(
