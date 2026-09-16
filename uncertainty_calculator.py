@@ -1,21 +1,25 @@
 import streamlit as st
 import pandas as pd
-import math
 import numpy as np
+import math
 
-selected_budget = BUDGETS[instrument]
+# ----------------------------------
+# Page Setup
+# ----------------------------------
 
-instrument = st.selectbox(
-    "Select Instrument",
-    [
-        "Micrometer",
-        "Vernier Caliper",
-        "Dial Gauge",
-        "Plug Gauge"
-    ]
+st.set_page_config(
+    page_title="KEP Uncertainty Calculator",
+    page_icon="📏",
+    layout="wide"
 )
 
+st.title("📏 KEP Standard Laboratory")
+st.subheader("Master Uncertainty Calculator")
 
+# ----------------------------------
+# Budget Database
+# (Temporary values)
+# ----------------------------------
 
 BUDGETS = {
     "Micrometer": {
@@ -43,56 +47,83 @@ BUDGETS = {
     }
 }
 
-nominal = st.number_input(
-    "Nominal Size (mm)",
-    value=25.000
+# ----------------------------------
+# Instrument Selection
+# ----------------------------------
+
+instrument = st.selectbox(
+    "Select Instrument",
+    [
+        "Micrometer",
+        "Vernier Caliper",
+        "Dial Gauge",
+        "Plug Gauge"
+    ]
 )
 
-r1 = st.number_input("Reading 1")
-r2 = st.number_input("Reading 2")
-r3 = st.number_input("Reading 3")
-r4 = st.number_input("Reading 4")
-r5 = st.number_input("Reading 5")
+# ----------------------------------
+# Inputs
+# ----------------------------------
+
+nominal = st.number_input(
+    "Nominal Size (mm)",
+    value=25.000,
+    format="%.3f"
+)
+
+r1 = st.number_input("Reading 1", format="%.6f")
+r2 = st.number_input("Reading 2", format="%.6f")
+r3 = st.number_input("Reading 3", format="%.6f")
+r4 = st.number_input("Reading 4", format="%.6f")
+r5 = st.number_input("Reading 5", format="%.6f")
 
 temperature = st.number_input(
     "Temperature (°C)",
-    value=20.0
-)
-import numpy as np
-
-readings = [r1, r2, r3, r4, r5]
-
-mean_value = np.mean(readings)
-
-std_dev = np.std(readings, ddof=1)
-
-u_repeat = std_dev / np.sqrt(len(readings))
-selected_budget = BUDGETS[instrument]
-
-u_resolution = selected_budget["resolution"]
-
-u_master = selected_budget["master"]
-
-u_temp = selected_budget["temp_coeff"]
-
-uc = math.sqrt(
-    u_repeat**2 +
-    u_resolution**2 +
-    u_master**2 +
-    u_temp**2
+    value=20.0,
+    format="%.1f"
 )
 
-U = 2 * uc
+# ----------------------------------
+# Calculate
+# ----------------------------------
 
-st.subheader("Results")
+if st.button("Calculate"):
 
-st.write(f"Mean Reading = {mean_value:.6f}")
+    readings = [r1, r2, r3, r4, r5]
 
-st.write(f"Standard Deviation = {std_dev:.6f}")
+    mean_value = np.mean(readings)
 
-st.write(f"Combined Uncertainty = {uc:.6f}")
+    std_dev = np.std(readings, ddof=1)
 
-st.success(
-    f"Expanded Uncertainty U(k=2) = ±{U:.6f} mm"
-)
+    u_repeat = std_dev / np.sqrt(len(readings))
 
+    selected_budget = BUDGETS[instrument]
+
+    u_resolution = selected_budget["resolution"]
+
+    u_master = selected_budget["master"]
+
+    u_temp = selected_budget["temp_coeff"]
+
+    uc = math.sqrt(
+        u_repeat**2 +
+        u_resolution**2 +
+        u_master**2 +
+        u_temp**2
+    )
+
+    U = 2 * uc
+
+    st.subheader("Results")
+
+    st.write(f"Mean Reading = {mean_value:.6f}")
+
+    st.write(f"Standard Deviation = {std_dev:.6f}")
+
+    st.write(f"Repeatability Uncertainty = {u_repeat:.6f}")
+
+    st.write(f"Combined Uncertainty (Uc) = {uc:.6f}")
+
+    st.success(
+        f"Expanded Uncertainty U(k=2) = ±{U:.6f} mm"
+    )
