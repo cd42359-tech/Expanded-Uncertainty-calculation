@@ -1,118 +1,81 @@
-import streamlit as st
-import pandas as pd
-import math
+BUDGETS = {
+    "Micrometer": {
+        "resolution": 0.000289,
+        "master": 0.000500,
+        "temp_coeff": 0.000200
+    },
 
-st.set_page_config(
-    page_title="KEP Uncertainty Calculator",
-    page_icon="📏",
-    layout="wide"
+    "Vernier Caliper": {
+        "resolution": 0.005000,
+        "master": 0.002000,
+        "temp_coeff": 0.001000
+    },
+
+    "Dial Gauge": {
+        "resolution": 0.001000,
+        "master": 0.001500,
+        "temp_coeff": 0.000500
+    },
+
+    "Plug Gauge": {
+        "resolution": 0.000000,
+        "master": 0.000300,
+        "temp_coeff": 0.000100
+    }
+}
+
+nominal = st.number_input(
+    "Nominal Size (mm)",
+    value=25.000
 )
 
-st.title("📏 KEP Standard Laboratory")
-st.subheader("Master Uncertainty Calculator")
-
-# -------------------------------
-# Common Function
-# -------------------------------
-
-def calculate_uncertainty(contributors):
-
-    uc = math.sqrt(sum(u**2 for u in contributors))
-    U = 2 * uc
-
-    return uc, U
-
-
-# -------------------------------
-# Instrument Selection
-# -------------------------------
-
-instrument = st.selectbox(
-    "Select Instrument",
-    [
-        "Micrometer",
-        "Vernier Caliper",
-        "Dial Gauge",
-        "Plug Gauge",
-        "Plunger Dial"
-    ]
-)
-
-st.divider()
-
-# -------------------------------
-# Inputs
-# -------------------------------
-
-repeatability = st.number_input(
-    "Repeatability Contribution",
-    value=0.0000,
-    format="%.6f"
-)
-
-resolution = st.number_input(
-    "Resolution",
-    value=0.0000,
-    format="%.6f"
-)
-
-certificate = st.number_input(
-    "Master/Certificate Uncertainty",
-    value=0.0000,
-    format="%.6f"
-)
+r1 = st.number_input("Reading 1")
+r2 = st.number_input("Reading 2")
+r3 = st.number_input("Reading 3")
+r4 = st.number_input("Reading 4")
+r5 = st.number_input("Reading 5")
 
 temperature = st.number_input(
-    "Temperature Contribution",
-    value=0.0000,
-    format="%.6f"
+    "Temperature (°C)",
+    value=20.0
+)
+import numpy as np
+
+readings = [r1, r2, r3, r4, r5]
+
+mean_value = np.mean(readings)
+
+std_dev = np.std(readings, ddof=1)
+
+u_repeat = std_dev / np.sqrt(len(readings))
+selected_budget = BUDGETS[instrument]
+
+u_resolution = selected_budget["resolution"]
+
+u_master = selected_budget["master"]
+
+u_temp = selected_budget["temp_coeff"]
+
+uc = math.sqrt(
+    u_repeat**2 +
+    u_resolution**2 +
+    u_master**2 +
+    u_temp**2
 )
 
-# -------------------------------
-# Calculate Button
-# -------------------------------
+U = 2 * uc
 
-if st.button("Calculate"):
+st.subheader("Results")
 
-    u_repeat = repeatability
+st.write(f"Mean Reading = {mean_value:.6f}")
 
-    u_resolution = resolution / math.sqrt(12)
+st.write(f"Standard Deviation = {std_dev:.6f}")
 
-    u_certificate = certificate / 2
+st.write(f"Combined Uncertainty = {uc:.6f}")
 
-    u_temperature = temperature / math.sqrt(3)
-
-    contributors = [
-        u_repeat,
-        u_resolution,
-        u_certificate,
-        u_temperature
-    ]
-
-    uc, U = calculate_uncertainty(contributors)
-
-    budget = pd.DataFrame({
-        "Contributor": [
-            "Repeatability",
-            "Resolution",
-            "Certificate",
-            "Temperature"
-        ],
-        "Standard Uncertainty": [
-            u_repeat,
-            u_resolution,
-            u_certificate,
-            u_temperature
-        ]
-    })
-
-    st.subheader("Uncertainty Budget")
-    st.dataframe(budget, use_container_width=True)
-
-    st.success(
-        f"Combined Uncertainty (Uc) = {uc:.6f}"
-    )
-
-    st.success(
-        f"Expanded Uncertainty U(k=2) = ±{U:.6f}"
-    )
+st.success(
+    f"Expanded Uncertainty U(k=2) = ±{U:.6f} mm"
+)
+"resolution": 0.000289
+"master": 0.000500
+"temp_coeff": 0.000200
