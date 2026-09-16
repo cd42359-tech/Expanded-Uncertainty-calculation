@@ -76,6 +76,4 @@ st.write(f"Combined Uncertainty = {uc:.6f}")
 st.success(
     f"Expanded Uncertainty U(k=2) = ±{U:.6f} mm"
 )
-"resolution": 0.000289
-"master": 0.000500
-"temp_coeff": 0.000200
+
