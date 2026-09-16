@@ -3,6 +3,18 @@ import pandas as pd
 import math
 import numpy as np
 
+selected_budget = BUDGETS[instrument]
+
+instrument = st.selectbox(
+    "Select Instrument",
+    [
+        "Micrometer",
+        "Vernier Caliper",
+        "Dial Gauge",
+        "Plug Gauge"
+    ]
+)
+
 
 
 BUDGETS = {
