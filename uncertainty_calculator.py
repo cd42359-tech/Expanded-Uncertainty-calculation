@@ -1,198 +1,118 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
+import math
 
-st.title("Calibration Uncertainty Calculator")
+st.set_page_config(
+    page_title="KEP Uncertainty Calculator",
+    page_icon="📏",
+    layout="wide"
+)
 
-st.subheader("Caliper Uncertainty Calculation")
+st.title("📏 KEP Standard Laboratory")
+st.subheader("Master Uncertainty Calculator")
+
+# -------------------------------
+# Common Function
+# -------------------------------
+
+def calculate_uncertainty(contributors):
+
+    uc = math.sqrt(sum(u**2 for u in contributors))
+    U = 2 * uc
+
+    return uc, U
+
+
+# -------------------------------
+# Instrument Selection
+# -------------------------------
+
 instrument = st.selectbox(
-    "Select Instrument Type",
+    "Select Instrument",
     [
-        "Caliper",
         "Micrometer",
+        "Vernier Caliper",
+        "Dial Gauge",
         "Plug Gauge",
         "Plunger Dial"
     ]
 )
-option = st.selectbox(
-    "Select Nominal Size",
-    [
-        "150 mm (LC 0.01)",
-        "200 mm (LC 0.01)",
-        "200 mm (LC 0.02)",
-        "300 mm (LC 0.01)",
-        "300 mm (LC 0.02)",
-        "600 mm (LC 0.02)"
+
+st.divider()
+
+# -------------------------------
+# Inputs
+# -------------------------------
+
+repeatability = st.number_input(
+    "Repeatability Contribution",
+    value=0.0000,
+    format="%.6f"
+)
+
+resolution = st.number_input(
+    "Resolution",
+    value=0.0000,
+    format="%.6f"
+)
+
+certificate = st.number_input(
+    "Master/Certificate Uncertainty",
+    value=0.0000,
+    format="%.6f"
+)
+
+temperature = st.number_input(
+    "Temperature Contribution",
+    value=0.0000,
+    format="%.6f"
+)
+
+# -------------------------------
+# Calculate Button
+# -------------------------------
+
+if st.button("Calculate"):
+
+    u_repeat = repeatability
+
+    u_resolution = resolution / math.sqrt(12)
+
+    u_certificate = certificate / 2
+
+    u_temperature = temperature / math.sqrt(3)
+
+    contributors = [
+        u_repeat,
+        u_resolution,
+        u_certificate,
+        u_temperature
     ]
-)
-if option == "150 mm (LC 0.01)":
-    nominal_size = 150
-    least_count = 0.01
 
-elif option == "200 mm (LC 0.01)":
-    nominal_size = 200
-    least_count = 0.01
+    uc, U = calculate_uncertainty(contributors)
 
-elif option == "200 mm (LC 0.02)":
-    nominal_size = 200
-    least_count = 0.02
+    budget = pd.DataFrame({
+        "Contributor": [
+            "Repeatability",
+            "Resolution",
+            "Certificate",
+            "Temperature"
+        ],
+        "Standard Uncertainty": [
+            u_repeat,
+            u_resolution,
+            u_certificate,
+            u_temperature
+        ]
+    })
 
-elif option == "300 mm (LC 0.01)":
-    nominal_size = 300
-    least_count = 0.01
+    st.subheader("Uncertainty Budget")
+    st.dataframe(budget, use_container_width=True)
 
-elif option == "300 mm (LC 0.02)":
-    nominal_size = 300
-    least_count = 0.02
+    st.success(
+        f"Combined Uncertainty (Uc) = {uc:.6f}"
+    )
 
-else:
-    nominal_size = 600
-    least_count = 0.02
-st.write("Nominal Size :", nominal_size)
-
-st.write("Least Count :", least_count)
-st.subheader("Input Measurements")
-temp = st.number_input(
-    "Temperature (°C)",
-    value=20.0
-)
-r1 = st.number_input(
-    "Reading 1",
-    value=float(nominal_size)
-)
-
-r2 = st.number_input(
-    "Reading 2",
-    value=float(nominal_size)
-)
-
-r3 = st.number_input(
-    "Reading 3",
-    value=float(nominal_size)
-)
-
-r4 = st.number_input(
-    "Reading 4",
-    value=float(nominal_size)
-)
-
-r5 = st.number_input(
-    "Reading 5",
-    value=float(nominal_size)
-)
-readings = [r1, r2, r3, r4, r5]
-
-mean_reading = np.mean(readings)
-st.subheader("Measurement Summary")
-std_dev = np.std(readings, ddof=1)
-
-repeatability_u = std_dev / np.sqrt(5)
-
-error = mean_reading - nominal_size
-
-resolution_u = least_count / (2 * np.sqrt(3))
-
-summary_df = pd.DataFrame({
-    "Parameter": [
-        "Mean Reading",
-        "Standard Deviation",
-        "Repeatability U",
-        "Error",
-        "Resolution U"
-    ],
-    "Value": [
-        round(mean_reading, 6),
-        round(std_dev, 6),
-        round(repeatability_u, 6),
-        round(error, 6),
-        round(resolution_u, 6)
-    ]
-})
-
-st.dataframe(
-    summary_df,
-    use_container_width=True
-)
-# Reference standard contributors from Caliper budget
-# --------------------------------------------------
-# Caliper Uncertainty Contributors
-# --------------------------------------------------
-
-if nominal_size == 150:
-
-    acc_checker = 0.002887
-    unc_checker = 0.001900
-    temp_u = 0.000432
-
-elif nominal_size == 200 and least_count == 0.01:
-
-    acc_checker = 0.002887
-    unc_checker = 0.001900
-    temp_u = 0.000576
-
-elif nominal_size == 200 and least_count == 0.02:
-
-    acc_checker = 0.002887
-    unc_checker = 0.001900
-    temp_u = 0.000576
-
-elif nominal_size == 300 and least_count == 0.01:
-
-    acc_checker = 0.002887
-    unc_checker = 0.001900
-    temp_u = 0.000863
-
-elif nominal_size == 300 and least_count == 0.02:
-
-    acc_checker = 0.002887
-    unc_checker = 0.001900
-    temp_u = 0.000863
-
-else:  # 600 mm (LC 0.02)
-
-    acc_checker = 0.002887
-    unc_checker = 0.001900
-    temp_u = 0.000266
-
-
-# --------------------------------------------------
-# Display Contributors
-# --------------------------------------------------
-
-st.subheader("Uncertainty Budget Summary")
-
-budget_df = pd.DataFrame({
-    "Contributor": [
-        "Repeatability U",
-        "Resolution U",
-        "Checker Accuracy U",
-        "Checker Certificate U",
-        "Temperature U"
-    ],
-    "Value": [
-        round(repeatability_u, 6),
-        round(resolution_u, 6),
-        round(acc_checker, 6),
-        round(unc_checker, 6),
-        round(temp_u, 6)
-    ]
-})
-
-st.dataframe(
-    budget_df,
-    use_container_width=True
-)
-combined_u = np.sqrt(
-    repeatability_u**2 +
-    resolution_u**2 +
-    acc_checker**2 +
-    unc_checker**2 +
-    temp_u**2
-)
-
-expanded_u = 2 * combined_u
-st.success(f"""
-Combined Uncertainty : {combined_u:.6f}
-
-Expanded Uncertainty : {expanded_u:.6f}
-""")
+    st.success(
+        f"Expanded Uncertainty U(k=2) = ±{U:.6f}"
+    )
