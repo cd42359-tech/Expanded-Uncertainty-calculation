@@ -208,3 +208,75 @@ ALL_BUDGETS = {
         ]
     }
 }
+
+st.set_page_config(
+    page_title="KEP Uncertainty Calculator",
+    page_icon="📏",
+    layout="wide"
+)
+
+st.title("📏 KEP Master Uncertainty Calculator")
+
+instrument = st.selectbox(
+    "Select Instrument",
+    list(ALL_BUDGETS.keys())
+)
+
+selected_range = st.selectbox(
+    "Select Range",
+    list(ALL_BUDGETS[instrument].keys())
+)
+
+r1 = st.number_input("Reading 1", format="%.6f")
+r2 = st.number_input("Reading 2", format="%.6f")
+r3 = st.number_input("Reading 3", format="%.6f")
+r4 = st.number_input("Reading 4", format="%.6f")
+r5 = st.number_input("Reading 5", format="%.6f")
+
+temperature = st.number_input(
+    "Temperature (°C)",
+    value=20.0,
+    format="%.1f"
+)
+
+if st.button("Calculate"):
+
+    readings = [r1, r2, r3, r4, r5]
+
+    mean_value = np.mean(readings)
+
+    std_dev = np.std(readings, ddof=1)
+
+    u_repeat = std_dev / math.sqrt(5)
+
+    budget = ALL_BUDGETS[instrument][selected_range]
+
+    contributors = [u_repeat] + budget
+
+    uc = math.sqrt(
+        sum(x**2 for x in contributors)
+    )
+
+    U = 2 * uc
+
+    st.subheader("Results")
+
+    st.write(f"Mean Reading = {mean_value:.6f}")
+
+    st.write(f"Standard Deviation = {std_dev:.6f}")
+
+    st.write(f"Repeatability Uncertainty = {u_repeat:.6f}")
+
+    st.write(f"Combined Uncertainty (Uc) = {uc:.6f}")
+
+    st.success(
+        f"Expanded Uncertainty U(k=2) = ±{U:.6f}"
+    )
+
+    st.subheader("Reported Result")
+
+    st.success(
+        f"{mean_value:.6f} ± {U:.6f}"
+    )
+    
+
