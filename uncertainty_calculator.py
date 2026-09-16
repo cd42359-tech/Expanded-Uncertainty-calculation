@@ -251,7 +251,20 @@ if st.button("Calculate"):
 
     budget = ALL_BUDGETS[instrument][selected_range]
 
-    contributors = [u_repeat] + budget
+    # Temperature difference from 20°C
+    delta_t = abs(temperature - 20.0)
+
+    # Keep all contributors except last one
+    fixed_contributors = budget[:-1]
+
+    # Dynamic temperature contribution
+    dynamic_temp = budget[-1] * delta_t
+
+    contributors = (
+        [u_repeat]
+        + fixed_contributors
+        + [dynamic_temp]
+    )
 
     uc = math.sqrt(
         sum(x**2 for x in contributors)
@@ -261,13 +274,33 @@ if st.button("Calculate"):
 
     st.subheader("Results")
 
-    st.write(f"Mean Reading = {mean_value:.6f}")
+    st.write(
+        f"Mean Reading = {mean_value:.6f}"
+    )
 
-    st.write(f"Standard Deviation = {std_dev:.6f}")
+    st.write(
+        f"Standard Deviation = {std_dev:.6f}"
+    )
 
-    st.write(f"Repeatability Uncertainty = {u_repeat:.6f}")
+    st.write(
+        f"Repeatability Uncertainty = {u_repeat:.6f}"
+    )
 
-    st.write(f"Combined Uncertainty (Uc) = {uc:.6f}")
+    st.write(
+        f"Entered Temperature = {temperature:.1f} °C"
+    )
+
+    st.write(
+        f"Temperature Difference = {delta_t:.2f} °C"
+    )
+
+    st.write(
+        f"Dynamic Temperature Contribution = {dynamic_temp:.6f}"
+    )
+
+    st.write(
+        f"Combined Uncertainty (Uc) = {uc:.6f}"
+    )
 
     st.success(
         f"Expanded Uncertainty U(k=2) = ±{U:.6f}"
@@ -278,5 +311,3 @@ if st.button("Calculate"):
     st.success(
         f"{mean_value:.6f} ± {U:.6f}"
     )
-    
-
