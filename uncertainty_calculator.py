@@ -1,11 +1,10 @@
 import streamlit as st
-import pandas as pd
 import numpy as np
 import math
 
-# ----------------------------------
-# Page Setup
-# ----------------------------------
+# --------------------------------------------------
+# PAGE CONFIG
+# --------------------------------------------------
 
 st.set_page_config(
     page_title="KEP Uncertainty Calculator",
@@ -16,60 +15,87 @@ st.set_page_config(
 st.title("📏 KEP Standard Laboratory")
 st.subheader("Master Uncertainty Calculator")
 
-# ----------------------------------
-# Budget Database
-# (Temporary values)
-# ----------------------------------
+# --------------------------------------------------
+# MICROMETER BUDGET
+# Values taken from approved uncertainty worksheet
+# --------------------------------------------------
 
-BUDGETS = {
-    "Micrometer": {
-        "resolution": 0.000289,
-        "master": 0.000500,
-        "temp_coeff": 0.000200
+MICROMETER_BUDGET = {
+
+    "0-25": {
+        "slip_accuracy": 0.000173205,
+        "slip_uncertainty": 0.000050000,
+        "resolution": 0.000288675,
+        "temp_accuracy": 0.000046765,
+        "temp_uncertainty": 0.000007000,
+        "temp_difference": 0.000023671,
+        "cte_difference": 0.000098150,
+        "reference_temp": 0.000031177
     },
 
-    "Vernier Caliper": {
-        "resolution": 0.005000,
-        "master": 0.002000,
-        "temp_coeff": 0.001000
+    "25-50": {
+        "slip_accuracy": 0.000173205,
+        "slip_uncertainty": 0.000078000,
+        "resolution": 0.000288675,
+        "temp_accuracy": 0.000093531,
+        "temp_uncertainty": 0.000013500,
+        "temp_difference": 0.000046765,
+        "cte_difference": 0.000196299,
+        "reference_temp": 0.000109119
     },
 
-    "Dial Gauge": {
-        "resolution": 0.001000,
-        "master": 0.001500,
-        "temp_coeff": 0.000500
+    "50-75": {
+        "slip_accuracy": 0.000173205,
+        "slip_uncertainty": 0.000086000,
+        "resolution": 0.000288675,
+        "temp_accuracy": 0.000140296,
+        "temp_uncertainty": 0.000020500,
+        "temp_difference": 0.000070437,
+        "cte_difference": 0.000294449,
+        "reference_temp": 0.000163390
     },
 
-    "Plug Gauge": {
-        "resolution": 0.000000,
-        "master": 0.000300,
-        "temp_coeff": 0.000100
+    "75-100": {
+        "slip_accuracy": 0.000173205,
+        "slip_uncertainty": 0.000125500,
+        "resolution": 0.000288675,
+        "temp_accuracy": 0.000187061,
+        "temp_uncertainty": 0.000027000,
+        "temp_difference": 0.000093531,
+        "cte_difference": 0.000392598,
+        "reference_temp": 0.000218238
     }
+
 }
 
-# ----------------------------------
-# Instrument Selection
-# ----------------------------------
+# --------------------------------------------------
+# INSTRUMENT
+# --------------------------------------------------
 
 instrument = st.selectbox(
     "Select Instrument",
     [
-        "Micrometer",
-        "Vernier Caliper",
-        "Dial Gauge",
-        "Plug Gauge"
+        "Micrometer"
     ]
 )
 
-# ----------------------------------
-# Inputs
-# ----------------------------------
+# --------------------------------------------------
+# RANGE SELECTION
+# --------------------------------------------------
 
-nominal = st.number_input(
-    "Nominal Size (mm)",
-    value=25.000,
-    format="%.3f"
+selected_range = st.selectbox(
+    "Select Micrometer Range",
+    [
+        "0-25",
+        "25-50",
+        "50-75",
+        "75-100"
+    ]
 )
+
+# --------------------------------------------------
+# INPUTS
+# --------------------------------------------------
 
 r1 = st.number_input("Reading 1", format="%.6f")
 r2 = st.number_input("Reading 2", format="%.6f")
@@ -83,9 +109,9 @@ temperature = st.number_input(
     format="%.1f"
 )
 
-# ----------------------------------
-# Calculate
-# ----------------------------------
+# --------------------------------------------------
+# CALCULATE
+# --------------------------------------------------
 
 if st.button("Calculate"):
 
@@ -93,37 +119,60 @@ if st.button("Calculate"):
 
     mean_value = np.mean(readings)
 
-    std_dev = np.std(readings, ddof=1)
+    std_dev = np.std(
+        readings,
+        ddof=1
+    )
 
-    u_repeat = std_dev / np.sqrt(len(readings))
+    u_repeat = std_dev / math.sqrt(5)
 
-    selected_budget = BUDGETS[instrument]
+    budget = MICROMETER_BUDGET[selected_range]
 
-    u_resolution = selected_budget["resolution"]
+    contributors = [
 
-    u_master = selected_budget["master"]
+        u_repeat,
 
-    u_temp = selected_budget["temp_coeff"]
+        budget["slip_accuracy"],
+        budget["slip_uncertainty"],
+        budget["resolution"],
+        budget["temp_accuracy"],
+        budget["temp_uncertainty"],
+        budget["temp_difference"],
+        budget["cte_difference"],
+        budget["reference_temp"]
+
+    ]
 
     uc = math.sqrt(
-        u_repeat**2 +
-        u_resolution**2 +
-        u_master**2 +
-        u_temp**2
+        sum(x**2 for x in contributors)
     )
 
     U = 2 * uc
 
     st.subheader("Results")
 
-    st.write(f"Mean Reading = {mean_value:.6f}")
+    st.write(
+        f"Mean Reading = {mean_value:.6f} mm"
+    )
 
-    st.write(f"Standard Deviation = {std_dev:.6f}")
+    st.write(
+        f"Standard Deviation = {std_dev:.6f}"
+    )
 
-    st.write(f"Repeatability Uncertainty = {u_repeat:.6f}")
+    st.write(
+        f"Repeatability Uncertainty = {u_repeat:.6f}"
+    )
 
-    st.write(f"Combined Uncertainty (Uc) = {uc:.6f}")
+    st.write(
+        f"Combined Uncertainty (Uc) = {uc:.6f}"
+    )
 
     st.success(
         f"Expanded Uncertainty U(k=2) = ±{U:.6f} mm"
+    )
+
+    st.subheader("Reported Result")
+
+    st.success(
+        f"{mean_value:.6f} ± {U:.6f} mm"
     )
