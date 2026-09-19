@@ -49,11 +49,151 @@ ALL_BUDGETS = {
             0.000093531,
             0.000392598
         ]
+    },
+
+    "Caliper": {
+
+        "0-150": [
+            0.002886751,
+            0.001900000,
+            0.000635085,
+            0.001000000,
+            0.000115470,
+            0.000500000,
+            0.000288675,
+            0.000350000,
+            0.000173205,
+            0.000050000,
+            0.002886751
+        ],
+
+        "0-200": [
+            0.002886751,
+            0.001900000,
+            0.000635085,
+            0.001000000,
+            0.000115470,
+            0.000500000,
+            0.000288675,
+            0.000350000,
+            0.000173205,
+            0.000050000,
+            0.002886751
+        ],
+
+        "0-300": [
+            0.002886751,
+            0.001900000,
+            0.000635085,
+            0.001000000,
+            0.000115470,
+            0.000500000,
+            0.000288675,
+            0.000350000,
+            0.000173205,
+            0.000050000,
+            0.002886751
+        ],
+
+        "0-600": [
+            0.002886751,
+            0.001900000,
+            0.000750555,
+            0.001250000,
+            0.000115470,
+            0.000500000,
+            0.000288675,
+            0.000350000,
+            0.000173205,
+            0.000050000,
+            0.005773503
+        ]
+    },
+
+    "Plug Gauge": {
+
+        "5.961": [
+            0.000288675,
+            0.000250000,
+            0.000028868,
+            0.000006928,
+            0.000013279,
+            0.000002000,
+            0.000011547
+        ],
+
+        "20.4886": [
+            0.000288675,
+            0.000250000,
+            0.000028868,
+            0.000023094,
+            0.000046188,
+            0.000006500,
+            0.000040415
+        ],
+
+        "50.822": [
+            0.000244949,
+            0.000091924,
+            0.000028868,
+            0.000057735,
+            0.000114893,
+            0.000016500,
+            0.000099882
+        ]
+    },
+
+    "Plunger Dial": {
+
+        "0-1": [
+            0.000577350,
+            0.000200000,
+            0.000028868,
+            0.000288675,
+            0.000002887,
+            0.000000500,
+            0.000001155
+        ],
+
+        "0-10": [
+            0.001616581,
+            0.000200000,
+            0.000028868,
+            0.002886751,
+            0.000026558,
+            0.000004000,
+            0.000013279
+        ]
     }
+
 }
 
 # =====================================================
-# TEMPERATURE CONTRIBUTION
+# RANGE LENGTHS
+# =====================================================
+
+RANGE_LENGTH = {
+
+    "0-25": 25,
+    "25-50": 50,
+    "50-75": 75,
+    "75-100": 100,
+
+    "0-150": 150,
+    "0-200": 200,
+    "0-300": 300,
+    "0-600": 600,
+
+    "5.961": 5.961,
+    "20.4886": 20.4886,
+    "50.822": 50.822,
+
+    "0-1": 1,
+    "0-10": 10
+}
+
+# =====================================================
+# TEMPERATURE FUNCTION
 # =====================================================
 
 def calculate_temperature_uncertainty(length_mm, temperature):
@@ -64,10 +204,9 @@ def calculate_temperature_uncertainty(length_mm, temperature):
 
     temp_mm = alpha * delta_t * length_mm
 
-    temp_um = temp_mm * 1000
+    temp_std_mm = temp_mm / math.sqrt(3)
 
-    return temp_um / 1000
-
+    return temp_std_mm
 
 # =====================================================
 # PAGE
@@ -81,10 +220,6 @@ st.set_page_config(
 
 st.title("📏 KEP Master Uncertainty Calculator")
 
-# =====================================================
-# INPUTS
-# =====================================================
-
 instrument = st.selectbox(
     "Select Instrument",
     list(ALL_BUDGETS.keys())
@@ -95,26 +230,17 @@ selected_range = st.selectbox(
     list(ALL_BUDGETS[instrument].keys())
 )
 
-r1 = st.number_input("Reading 1")
-r2 = st.number_input("Reading 2")
-r3 = st.number_input("Reading 3")
-r4 = st.number_input("Reading 4")
-r5 = st.number_input("Reading 5")
+r1 = st.number_input("Reading 1", format="%.6f")
+r2 = st.number_input("Reading 2", format="%.6f")
+r3 = st.number_input("Reading 3", format="%.6f")
+r4 = st.number_input("Reading 4", format="%.6f")
+r5 = st.number_input("Reading 5", format="%.6f")
 
 temperature = st.number_input(
     "Temperature (°C)",
     value=20.0,
     step=0.1
 )
-
-nominal_size = st.number_input(
-    "Nominal Size (mm)",
-    value=25.0
-)
-
-# =====================================================
-# CALCULATE
-# =====================================================
 
 if st.button("Calculate Uncertainty"):
 
@@ -126,16 +252,18 @@ if st.button("Calculate Uncertainty"):
 
     u_repeat = std_dev / math.sqrt(5)
 
-    fixed_budget = ALL_BUDGETS[instrument][selected_range]
+    budget = ALL_BUDGETS[instrument][selected_range]
+
+    length_mm = RANGE_LENGTH[selected_range]
 
     u_temp = calculate_temperature_uncertainty(
-        nominal_size,
+        length_mm,
         temperature
     )
 
     contributors = [u_repeat]
 
-    contributors.extend(fixed_budget)
+    contributors.extend(budget)
 
     contributors.append(u_temp)
 
@@ -143,41 +271,23 @@ if st.button("Calculate Uncertainty"):
         sum(x**2 for x in contributors)
     )
 
-    U = uc * 2
-
-    # ==========================================
-    # RESULTS
-    # ==========================================
+    U = 2 * uc
 
     st.subheader("Results")
 
-    st.write(
-        f"Mean Reading : {mean_value:.6f}"
-    )
+    st.write(f"Mean Reading : {mean_value:.6f}")
 
-    st.write(
-        f"Standard Deviation : {std_dev:.6f}"
-    )
+    st.write(f"Standard Deviation : {std_dev:.6f}")
 
-    st.write(
-        f"Repeatability Uncertainty : {u_repeat:.6f}"
-    )
+    st.write(f"Repeatability Uncertainty : {u_repeat:.6f}")
 
-    st.write(
-        f"Temperature : {temperature:.1f} °C"
-    )
+    st.write(f"Temperature : {temperature:.1f} °C")
 
-    st.write(
-        f"Temperature Deviation : {abs(temperature-20):.1f} °C"
-    )
+    st.write(f"Temperature Deviation : {abs(temperature-20):.1f} °C")
 
-    st.write(
-        f"Temperature Contribution : {u_temp:.6f}"
-    )
+    st.write(f"Temperature Contribution : {u_temp:.6f}")
 
-    st.write(
-        f"Combined Uncertainty (Uc) : {uc:.6f}"
-    )
+    st.write(f"Combined Uncertainty (Uc) : {uc:.6f}")
 
     st.success(
         f"Expanded Uncertainty U(k=2) = ±{U:.6f}"
@@ -188,16 +298,3 @@ if st.button("Calculate Uncertainty"):
     st.success(
         f"{mean_value:.6f} ± {U:.6f}"
     )
-    
-import pandas as pd
-df = pd.DataFrame({
-    "Contributor": [
-        "Repeatability",
-        "Master Standard",
-        "Resolution",
-        "Temperature"
-    ]
-})
-
-st.subheader("Uncertainty Contributors")
-st.dataframe(df)
