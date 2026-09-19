@@ -1,6 +1,7 @@
 import streamlit as st
 import numpy as np
 import math
+from scipy.stats import t
 
 # =====================================================
 # MASTER BUDGETS
@@ -271,7 +272,24 @@ if st.button("Calculate Uncertainty"):
         sum(x**2 for x in contributors)
     )
 
-    U = 2 * uc
+   # Degrees of freedom for repeatability
+v_repeat = len(readings) - 1
+
+# Welch-Satterthwaite equation
+
+if u_repeat > 0:
+
+    veff = (uc ** 4) / ((u_repeat ** 4) / v_repeat)
+
+else:
+
+    veff = 999999
+
+# Coverage factor for 95% confidence
+
+k = t.ppf(0.975, veff)
+
+U = k * uc
 
     st.subheader("Results")
 
@@ -288,6 +306,13 @@ if st.button("Calculate Uncertainty"):
     st.write(f"Temperature Contribution : {u_temp:.6f}")
 
     st.write(f"Combined Uncertainty (Uc) : {uc:.6f}")
+st.write(
+    f"Effective Degrees of Freedom (Veff) : {veff:.0f}"
+)
+
+st.write(
+    f"Coverage Factor (k) : {k:.3f}"
+)
 
     st.success(
         f"Expanded Uncertainty U(k=2) = ±{U:.6f}"
