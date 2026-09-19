@@ -292,19 +292,19 @@ k = t.ppf(0.975, veff)
 U = k * uc
 st.subheader("Results")
 
-    st.write(f"Mean Reading : {mean_value:.6f}")
+st.write(f"Mean Reading : {mean_value:.6f}")
 
-    st.write(f"Standard Deviation : {std_dev:.6f}")
+st.write(f"Standard Deviation : {std_dev:.6f}")
 
-    st.write(f"Repeatability Uncertainty : {u_repeat:.6f}")
+st.write(f"Repeatability Uncertainty : {u_repeat:.6f}")
 
-    st.write(f"Temperature : {temperature:.1f} °C")
+st.write(f"Temperature : {temperature:.1f} °C")
 
-    st.write(f"Temperature Deviation : {abs(temperature-20):.1f} °C")
+st.write(f"Temperature Deviation : {abs(temperature-20):.1f} °C")
 
-    st.write(f"Temperature Contribution : {u_temp:.6f}")
+st.write(f"Temperature Contribution : {u_temp:.6f}")
 
-    st.write(f"Combined Uncertainty (Uc) : {uc:.6f}")
+st.write(f"Combined Uncertainty (Uc) : {uc:.6f}")
 st.write(
     f"Effective Degrees of Freedom (Veff) : {veff:.0f}"
 )
@@ -313,12 +313,12 @@ st.write(
     f"Coverage Factor (k) : {k:.3f}"
 )
 
-    st.success(
+st.success(
         f"Expanded Uncertainty U(k=2) = ±{U:.6f}"
     )
 
-    st.subheader("Reported Result")
+st.subheader("Reported Result")
 
-    st.success(
+st.success(
         f"{mean_value:.6f} ± {U:.6f}"
     )
