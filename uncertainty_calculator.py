@@ -271,11 +271,7 @@ if st.button("Calculate Uncertainty"):
     uc = math.sqrt(
         sum(x**2 for x in contributors)
     )
-
-   # Degrees of freedom for repeatability
 v_repeat = len(readings) - 1
-
-# Welch-Satterthwaite equation
 
 if u_repeat > 0:
 
@@ -285,11 +281,10 @@ else:
 
     veff = 999999
 
-# Coverage factor for 95% confidence
-
 k = t.ppf(0.975, veff)
 
 U = k * uc
+
 st.subheader("Results")
 
 st.write(f"Mean Reading : {mean_value:.6f}")
