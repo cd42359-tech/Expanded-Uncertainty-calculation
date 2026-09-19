@@ -189,3 +189,15 @@ if st.button("Calculate Uncertainty"):
         f"{mean_value:.6f} ± {U:.6f}"
     )
     
+import pandas as pd
+df = pd.DataFrame({
+    "Contributor": [
+        "Repeatability",
+        "Master Standard",
+        "Resolution",
+        "Temperature"
+    ]
+})
+
+st.subheader("Uncertainty Contributors")
+st.dataframe(df)
