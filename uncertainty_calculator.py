@@ -290,8 +290,7 @@ else:
 k = t.ppf(0.975, veff)
 
 U = k * uc
-
-    st.subheader("Results")
+st.subheader("Results")
 
     st.write(f"Mean Reading : {mean_value:.6f}")
 
