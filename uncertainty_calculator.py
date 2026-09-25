@@ -61,8 +61,8 @@ selected_range = st.selectbox(
     list(MASTER_BUDGET[instrument].keys())
 )
 
-budget = get_budget(instrument, selected_range)
-st.write(budget)
+st.write("App Loaded Successfully")
+#st.write(budget)
 
-st.success(f"Selected Instrument : {instrument}")
-st.success(f"Selected Range : {selected_range}")
+#st.success(f"Selected Instrument : {instrument}")
+#st.success(f"Selected Range : {selected_range}")
