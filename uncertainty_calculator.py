@@ -65,6 +65,15 @@ budget = get_budget(instrument, selected_range)
 
 st.write(budget)
 
+L = st.number_input(
+    "Measurement Size (mm)",
+    min_value=0.0,
+    value=10.0,
+    step=0.01
+)
+
+st.write("Selected Size (L) =", L, "mm")
+
 #st.write(budget)
 
 #st.success(f"Selected Instrument : {instrument}")
