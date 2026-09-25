@@ -9,11 +9,14 @@ MASTER_BUDGET = {
     },
 
     "Caliper": {
-        "0-150": {},
-        "0-200": {},
-        "0-300": {},
-        "0-600": {}
-    },
+    "0-150": {
+        "Accuracy of Caliper Checker": {
+            "value": 5.0,
+            "distribution": "Rectangular",
+            "dof": float("inf")
+        }
+    }
+},
 
     "Plug Gauge": {
         "0.5-60": {},
@@ -29,7 +32,6 @@ MASTER_BUDGET = {
         "0-25": {}
     }
 }
-
 
 def get_budget(instrument, selected_range):
     return MASTER_BUDGET[instrument][selected_range]
@@ -48,6 +50,7 @@ selected_range = st.selectbox(
 )
 
 budget = get_budget(instrument, selected_range)
+st.write(budget)
 
 st.success(f"Selected Instrument : {instrument}")
 st.success(f"Selected Range : {selected_range}")
