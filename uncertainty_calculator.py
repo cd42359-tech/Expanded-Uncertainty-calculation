@@ -82,8 +82,31 @@ actual_temp = st.number_input(
 
 st.write("Actual Temperature =", actual_temp, "°C")
 TDEV = abs(actual_temp - 20)
+st.write(
+    "Temperature Deviation from 20°C =",
+    round(TDEV, 3),
+    "°C"
+)
 
-st.write("Temperature Deviation from 20°C =", TDEV, "°C")
+Taccuracy = 0.4
+TUncertainty = 0.07
+Tdiff = 0.2
+alpha_avg = 0.0000081
+
+st.write("Average CTE =", alpha_avg)
+
+
+st.write("Temperature Accuracy =", Taccuracy)
+st.write("Temperature Uncertainty =", TUncertainty)
+st.write("Temperature Difference =", Tdiff)
+u_temp_accuracy = Taccuracy * alpha_avg * L * 1000
+
+st.write(
+    "Temperature Sensor Accuracy Contribution (µm) =",
+    round(u_temp_accuracy, 3)
+)
+
+
 
 #st.write(budget)
 
