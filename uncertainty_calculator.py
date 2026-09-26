@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 
 MASTER_BUDGET = {
     "Micrometer": {
@@ -232,6 +233,19 @@ r3 = st.number_input("Reading 3")
 r4 = st.number_input("Reading 4")
 r5 = st.number_input("Reading 5")
 
+readings = [r1, r2, r3, r4, r5]
+
+mean_reading = np.mean(readings)
+
+std_dev = np.std(readings, ddof=1)
+
+u_repeatability = std_dev / np.sqrt(len(readings))
+
+st.subheader("Repeatability Results")
+
+st.write("Mean =", round(mean_reading, 4))
+st.write("Standard Deviation =", round(std_dev, 4))
+st.write("Repeatability Uncertainty =", round(u_repeatability, 4))
 
 
 
