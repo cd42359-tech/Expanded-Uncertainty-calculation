@@ -74,6 +74,14 @@ L = st.number_input(
 
 st.write("Selected Size (L) =", L, "mm")
 
+actual_temp = st.number_input(
+    "Actual Temperature (°C)",
+    value=20.0,
+    step=0.1
+)
+
+st.write("Actual Temperature =", actual_temp, "°C")
+
 #st.write(budget)
 
 #st.success(f"Selected Instrument : {instrument}")
