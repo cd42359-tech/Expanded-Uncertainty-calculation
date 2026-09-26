@@ -139,21 +139,14 @@ st.write(
 )
 
 budget_data = [
+    ["Repeatability", u_repeatability, "Normal", 4],
+
     ["Temperature Accuracy", u_temp_accuracy, "Rectangular", float("inf")],
     ["Temperature Uncertainty", u_temp_uncertainty, "Normal", float("inf")],
     ["Temperature Difference", u_temp_difference, "Rectangular", float("inf")],
     ["Reference Temperature", u_ref_temperature, "Rectangular", float("inf")],
     ["Coefficient of Expansion", u_alpha_diff, "Rectangular", float("inf")]
 ]
-budget_df = pd.DataFrame(
-    budget_data,
-    columns=[
-        "Contributor",
-        "Value (µm)",
-        "Distribution",
-        "DOF"
-    ]
-)
 
 st.subheader("Uncertainty Budget")
 
