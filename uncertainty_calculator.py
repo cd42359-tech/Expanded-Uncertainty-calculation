@@ -203,6 +203,16 @@ budget_data = [
     ["Coefficient of Expansion", u_alpha_diff, "Rectangular", float("inf")]
 ]
 
+budget_df = pd.DataFrame(
+    budget_data,
+    columns=[
+        "Contributor",
+        "Value (µm)",
+        "Distribution",
+        "DOF"
+    ]
+)
+
 st.subheader("Uncertainty Budget")
 
 st.dataframe(
@@ -250,7 +260,6 @@ st.dataframe(
     use_container_width=True
 )
 
-import numpy as np
 
 Uc = np.sqrt(
     np.sum(
