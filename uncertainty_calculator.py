@@ -213,6 +213,17 @@ st.subheader("Combined Standard Uncertainty")
 
 st.write(round(Uc, 4), "µm")
 
+k = 2
+
+expanded_uncertainty = Uc * k
+
+st.subheader("Expanded Uncertainty")
+
+st.write(
+    round(expanded_uncertainty, 4),
+    "µm"
+)
+
 
 
 #st.write(budget)
