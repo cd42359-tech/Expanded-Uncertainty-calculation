@@ -161,6 +161,48 @@ st.dataframe(
     use_container_width=True
 )
 
+standard_uncertainties = []
+
+for item in budget_data:
+
+    contributor = item[0]
+    value = item[1]
+    distribution = item[2]
+    dof = item[3]
+
+    if distribution == "Rectangular":
+        std_unc = value / (3 ** 0.5)
+
+    elif distribution == "Normal":
+        std_unc = value
+
+    else:
+        std_unc = value
+
+    standard_uncertainties.append(
+        [contributor, value, distribution, std_unc, dof]
+    )
+
+budget_std_df = pd.DataFrame(
+    standard_uncertainties,
+    columns=[
+        "Contributor",
+        "Value (µm)",
+        "Distribution",
+        "Std Uncertainty (µm)",
+        "DOF"
+    ]
+)
+
+st.subheader("Standard Uncertainty Budget")
+
+st.dataframe(
+    budget_std_df,
+    use_container_width=True
+)
+
+
+
 #st.write(budget)
 
 #st.success(f"Selected Instrument : {instrument}")
