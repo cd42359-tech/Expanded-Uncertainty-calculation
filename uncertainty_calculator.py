@@ -27,9 +27,58 @@ MASTER_BUDGET = {
 
     },
 
-    "25-50": {},
-    "50-75": {},
-    "75-100": {}
+    "25-50": {
+    "Accuracy of Slip Gauges": {
+        "value": 0.300,
+        "distribution": "Rectangular",
+        "dof": float("inf")
+    },
+    "Uncertainty of Slip Gauge from Certificate": {
+        "value": 0.251,
+        "distribution": "Normal",
+        "dof": float("inf")
+    },
+    "Resolution of Micrometer": {
+        "value": 1.0,
+        "distribution": "Rectangular",
+        "dof": float("inf")
+    }
+},
+
+"50-75": {
+    "Accuracy of Slip Gauges": {
+        "value": 0.300,
+        "distribution": "Rectangular",
+        "dof": float("inf")
+    },
+    "Uncertainty of Slip Gauge from Certificate": {
+        "value": 0.251,
+        "distribution": "Normal",
+        "dof": float("inf")
+    },
+    "Resolution of Micrometer": {
+        "value": 1.0,
+        "distribution": "Rectangular",
+        "dof": float("inf")
+    }
+},
+
+"75-100": {
+    "Accuracy of Slip Gauges": {
+        "value": 0.300,
+        "distribution": "Rectangular",
+        "dof": float("inf")
+    },
+    "Uncertainty of Slip Gauge from Certificate": {
+        "value": 0.251,
+        "distribution": "Normal",
+        "dof": float("inf")
+    },
+    "Resolution of Micrometer": {
+        "value": 1.0,
+        "distribution": "Rectangular",
+        "dof": float("inf")
+    }
 },
 
     "Caliper": {
