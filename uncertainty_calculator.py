@@ -628,12 +628,26 @@ Uc = np.sqrt(
 
 st.subheader("Combined Standard Uncertainty")
 
+
+
 st.subheader("NABL Reporting Statement")
 
 st.success(
     f"Expanded Uncertainty = {expanded_uncertainty:.4f} µm "
     f"(Coverage Factor k = {k:.2f}, Confidence Level ≈ 95%)"
 )
+
+st.write(
+    f"Combined Standard Uncertainty (Uc) = {Uc:.4f} µm"
+)
+
+if veff == float("inf"):
+    st.write("Effective Degrees of Freedom (Veff) = ∞")
+else:
+    st.write(
+        f"Effective Degrees of Freedom (Veff) = {veff:.2f}"
+    )
+
 
 st.write(
     f"Combined Standard Uncertainty (Uc) = {Uc:.4f} µm"
