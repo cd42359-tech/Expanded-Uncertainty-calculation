@@ -634,9 +634,9 @@ st.write(
     f"Combined Standard Uncertainty (Uc) = {Uc:.4f} µm"
 )
 
-st.write(
-    f"Effective Degrees of Freedom (Veff) = {veff:.2f}"
-)
+#st.write(
+#   f"Effective Degrees of Freedom (Veff) = {veff:.2f}"
+#)
 
 veff_denominator = 0
 
