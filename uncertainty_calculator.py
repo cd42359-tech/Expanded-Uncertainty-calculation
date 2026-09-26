@@ -54,17 +54,17 @@ MASTER_BUDGET = {
     },
 
 
-    "Plug Gauge": {
+    "Plain Plug Gauge": {
         "0.5-60": {},
         "60-200": {}
     },
 
-    "Plunger Dial": {
+    "Analog Dial": {
         "0-1": {},
         "0-10": {}
     },
 
-    "Dial Gauge": {
+    "Digital Dial": {
         "0-25": {}
     }
 }
@@ -328,8 +328,8 @@ for item in budget_data:
     contributor = item[0]
     value = item[1]
 
-if isinstance(value, str):
-    continue
+    if not isinstance(value, (int, float)):
+        continue
     distribution = item[2]
     dof = item[3]
 
