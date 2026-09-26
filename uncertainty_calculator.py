@@ -1,14 +1,36 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+from scipy.stats import t
 
 MASTER_BUDGET = {
     "Micrometer": {
-        "0-25": {},
-        "25-50": {},
-        "50-75": {},
-        "75-100": {}
+    "0-25": {
+
+        "Accuracy of Slip Gauges": {
+            "value": 0.300,
+            "distribution": "Rectangular",
+            "dof": float("inf")
+        },
+
+        "Uncertainty of Slip Gauge from Certificate": {
+            "value": 0.251,
+            "distribution": "Normal",
+            "dof": float("inf")
+        },
+
+        "Resolution of Micrometer": {
+            "value": 1.0,
+            "distribution": "Rectangular",
+            "dof": float("inf")
+        }
+
     },
+
+    "25-50": {},
+    "50-75": {},
+    "75-100": {}
+},
 
     "Caliper": {
 
@@ -90,10 +112,59 @@ st.write(
     "°C"
 )
 
-Taccuracy = 0.4
-TUncertainty = 0.07
-Tdiff = 0.2
-alpha_avg = 0.0000081
+
+INSTRUMENT_CONSTANTS = {
+
+    "Micrometer": {
+        "alpha_avg": 0.0000081,
+        "alpha_diff": 0.0000068,
+        "Taccuracy": 0.4,
+        "TUncertainty": 0.07,
+        "Tdiff": 0.2
+    },
+
+    "Caliper": {
+        "alpha_avg": 0.0000115,
+        "alpha_diff": 0.0000115,
+        "Taccuracy": 0.4,
+        "TUncertainty": 0.07,
+        "Tdiff": 0.2
+    },
+
+    "Plain Plug Gauge": {
+        "alpha_avg": 0.0000098,
+        "alpha_diff": 0.0000034,
+        "Taccuracy": 0.4,
+        "TUncertainty": 0.07,
+        "Tdiff": 0.2
+    },
+
+    "Analog Dial": {
+        "alpha_avg": 0.0000115,
+        "alpha_diff": 0.0000115,
+        "Taccuracy": 0.4,
+        "TUncertainty": 0.07,
+        "Tdiff": 0.2
+    },
+
+    "Digital Dial": {
+        "alpha_avg": 0.0000115,
+        "alpha_diff": 0.0000115,
+        "Taccuracy": 0.4,
+        "TUncertainty": 0.08,
+        "Tdiff": 0.2
+    }
+}
+
+constants = INSTRUMENT_CONSTANTS[instrument]
+
+alpha_avg = constants["alpha_avg"]
+alpha_diff = constants["alpha_diff"]
+
+Taccuracy = constants["Taccuracy"]
+TUncertainty = constants["TUncertainty"]
+Tdiff = constants["Tdiff"]
+
 
 st.write("Average CTE =", alpha_avg)
 
@@ -193,15 +264,45 @@ st.write("Standard Deviation =", round(std_dev, 4))
 st.write("Repeatability Uncertainty =", round(u_repeatability, 4))
 
 
-budget_data = [
-    ["Repeatability", u_repeatability, "Normal", 4],
+budget_data = []
 
-    ["Temperature Accuracy", u_temp_accuracy, "Rectangular", float("inf")],
-    ["Temperature Uncertainty", u_temp_uncertainty, "Normal", float("inf")],
-    ["Temperature Difference", u_temp_difference, "Rectangular", float("inf")],
-    ["Reference Temperature", u_ref_temperature, "Rectangular", float("inf")],
+budget_data.append(
+    ["Repeatability", u_repeatability, "Normal", 4]
+)
+
+budget_data.append(
+    ["Temperature Accuracy", u_temp_accuracy, "Rectangular", float("inf")]
+)
+
+budget_data.append(
+    ["Temperature Uncertainty", u_temp_uncertainty, "Normal", float("inf")]
+)
+
+budget_data.append(
+    ["Temperature Difference", u_temp_difference, "Rectangular", float("inf")]
+)
+
+budget_data.append(
+    ["Reference Temperature", u_ref_temperature, "Rectangular", float("inf")]
+)
+
+budget_data.append(
     ["Coefficient of Expansion", u_alpha_diff, "Rectangular", float("inf")]
-]
+)
+
+for contributor, details in budget.items():
+
+    value = details["value"]
+
+    distribution = details["distribution"]
+
+    dof = details["dof"]
+
+    budget_data.append(
+        [contributor, value, distribution, dof]
+    )
+
+
 
 budget_df = pd.DataFrame(
     budget_data,
@@ -238,9 +339,18 @@ for item in budget_data:
     else:
         std_unc = value
 
-    standard_uncertainties.append(
-        [contributor, value, distribution, std_unc, dof]
-    )
+
+ci = 1
+
+standard_uncertainties.append(
+    [contributor,
+     value,
+     distribution,
+     ci,
+     std_unc,
+     dof]
+)
+
 
 budget_std_df = pd.DataFrame(
     standard_uncertainties,
@@ -248,10 +358,12 @@ budget_std_df = pd.DataFrame(
         "Contributor",
         "Value (µm)",
         "Distribution",
+        "Ci",
         "Std Uncertainty (µm)",
         "DOF"
     ]
 )
+
 
 st.subheader("Standard Uncertainty Budget")
 
@@ -292,7 +404,14 @@ else:
 
 
 
-k = 2
+if veff == float("inf"):
+    k = 2
+else:
+    k = t.ppf(0.975, veff)
+
+st.subheader("Coverage Factor (k)")
+st.write(round(k, 4))
+
 
 expanded_uncertainty = Uc * k
 
@@ -302,8 +421,6 @@ st.write(
     round(expanded_uncertainty, 4),
     "µm"
 )
-
-
 
 
 #st.write(budget)
