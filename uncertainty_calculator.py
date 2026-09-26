@@ -139,6 +139,60 @@ st.write(
 )
 
 
+st.subheader("Repeatability Readings")
+
+r1 = st.number_input(
+    "Reading 1",
+    value=0.0000,
+    step=0.0001,
+    format="%.4f"
+)
+
+r2 = st.number_input(
+    "Reading 2",
+    value=0.0000,
+    step=0.0001,
+    format="%.4f"
+)
+
+r3 = st.number_input(
+    "Reading 3",
+    value=0.0000,
+    step=0.0001,
+    format="%.4f"
+)
+
+r4 = st.number_input(
+    "Reading 4",
+    value=0.0000,
+    step=0.0001,
+    format="%.4f"
+)
+
+r5 = st.number_input(
+    "Reading 5",
+    value=0.0000,
+    step=0.0001,
+    format="%.4f"
+)
+
+
+
+st.subheader("Repeatability Results")
+
+readings = [r1, r2, r3, r4, r5]
+
+mean_reading = np.mean(readings)
+
+std_dev = np.std(readings, ddof=1)
+
+u_repeatability = std_dev / np.sqrt(len(readings))
+
+st.write("Mean =", round(mean_reading, 4))
+st.write("Standard Deviation =", round(std_dev, 4))
+st.write("Repeatability Uncertainty =", round(u_repeatability, 4))
+
+
 budget_data = [
     ["Repeatability", u_repeatability, "Normal", 4],
 
@@ -219,58 +273,6 @@ st.write(
     "µm"
 )
 
-st.subheader("Repeatability Readings")
-
-r1 = st.number_input(
-    "Reading 1",
-    value=0.0000,
-    step=0.0001,
-    format="%.4f"
-)
-
-r2 = st.number_input(
-    "Reading 2",
-    value=0.0000,
-    step=0.0001,
-    format="%.4f"
-)
-
-r3 = st.number_input(
-    "Reading 3",
-    value=0.0000,
-    step=0.0001,
-    format="%.4f"
-)
-
-r4 = st.number_input(
-    "Reading 4",
-    value=0.0000,
-    step=0.0001,
-    format="%.4f"
-)
-
-r5 = st.number_input(
-    "Reading 5",
-    value=0.0000,
-    step=0.0001,
-    format="%.4f"
-)
-
-
-
-st.subheader("Repeatability Results")
-
-readings = [r1, r2, r3, r4, r5]
-
-mean_reading = np.mean(readings)
-
-std_dev = np.std(readings, ddof=1)
-
-u_repeatability = std_dev / np.sqrt(len(readings))
-
-st.write("Mean =", round(mean_reading, 4))
-st.write("Standard Deviation =", round(std_dev, 4))
-st.write("Repeatability Uncertainty =", round(u_repeatability, 4))
 
 
 
