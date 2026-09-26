@@ -224,6 +224,15 @@ st.write(
     "µm"
 )
 
+st.subheader("Repeatability Readings")
+
+r1 = st.number_input("Reading 1")
+r2 = st.number_input("Reading 2")
+r3 = st.number_input("Reading 3")
+r4 = st.number_input("Reading 4")
+r5 = st.number_input("Reading 5")
+
+
 
 
 #st.write(budget)
