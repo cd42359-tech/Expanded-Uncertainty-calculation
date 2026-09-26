@@ -671,26 +671,6 @@ st.write(round(k, 4))
 expanded_uncertainty = Uc * k
 
 
-st.subheader("NABL Reporting Statement")
-
-report_text = (
-    f"Expanded Uncertainty = {expanded_uncertainty:.4f} µm "
-    f"(Coverage Factor k = {k:.2f}, Confidence Level ≈ 95%)"
-)
-
-st.success(report_text)
-
-st.write(
-    f"Combined Standard Uncertainty (Uc) = {Uc:.4f} µm"
-)
-
-if veff == float("inf"):
-    st.write("Effective Degrees of Freedom (Veff) = ∞")
-else:
-    st.write(
-        f"Effective Degrees of Freedom (Veff) = {veff:.2f}"
-    )
-
 
 
 st.subheader("Expanded Uncertainty")
