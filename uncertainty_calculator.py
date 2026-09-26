@@ -671,6 +671,34 @@ st.write(round(k, 4))
 expanded_uncertainty = Uc * k
 
 
+st.subheader("Final Summary")
+
+summary_df = pd.DataFrame({
+    "Parameter": [
+        "Instrument",
+        "Range",
+        "Measurement Size (mm)",
+        "Combined Standard Uncertainty (Uc)",
+        "Effective Degrees of Freedom (Veff)",
+        "Coverage Factor (k)",
+        "Expanded Uncertainty (µm)"
+    ],
+    "Value": [
+        instrument,
+        selected_range,
+        L,
+        round(Uc, 4),
+        "∞" if veff == float("inf") else round(veff, 2),
+        round(k, 4),
+        round(expanded_uncertainty, 4)
+    ]
+})
+
+st.table(summary_df)
+
+
+
+
 
 
 st.subheader("Expanded Uncertainty")
