@@ -201,6 +201,18 @@ st.dataframe(
     use_container_width=True
 )
 
+import numpy as np
+
+Uc = np.sqrt(
+    np.sum(
+        budget_std_df["Std Uncertainty (µm)"] ** 2
+    )
+)
+
+st.subheader("Combined Standard Uncertainty")
+
+st.write(round(Uc, 4), "µm")
+
 
 
 #st.write(budget)
