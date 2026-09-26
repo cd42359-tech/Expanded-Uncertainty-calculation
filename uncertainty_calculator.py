@@ -392,16 +392,20 @@ for item in budget_data:
         std_unc = value
 
 
-ci = 1
+    ci = 1
 
-standard_uncertainties.append(
-    [contributor,
-     value,
-     distribution,
-     ci,
-     std_unc,
-     dof]
-)
+    standard_uncertainties.append(
+        [
+            contributor,
+            value,
+            distribution,
+            ci,
+            std_unc,
+            dof
+        ]
+    )
+
+
 
 
 budget_std_df = pd.DataFrame(
