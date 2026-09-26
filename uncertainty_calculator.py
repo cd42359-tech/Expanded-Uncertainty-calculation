@@ -575,19 +575,19 @@ for item in budget_data:
 
     if "Resolution" in contributor:
 
-    std_unc = value / (2 * (3 ** 0.5))
+        std_unc = value / (2 * (3 ** 0.5))
 
     elif distribution == "Rectangular":
 
-    std_unc = value / (3 ** 0.5)
+        std_unc = value / (3 ** 0.5)
 
     elif distribution == "Normal":
 
-    std_unc = value
+        std_unc = value
 
     else:
 
-    std_unc = value
+       std_unc = value
 
 
     ci = 1
