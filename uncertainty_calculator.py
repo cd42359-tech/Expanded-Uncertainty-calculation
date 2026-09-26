@@ -95,6 +95,7 @@ MASTER_BUDGET = {
             "Accuracy of Slip Gauge 25mm": {"value": 0.3, "distribution": "Rectangular", "dof": float("inf")},
             "Uncertainty of Slip Gauge 25mm": {"value": 0.1, "distribution": "Normal", "dof": float("inf")},
             "Resolution of Vernier": {"value": "dynamic", "distribution": "Rectangular", "dof": float("inf")}
+        }            
         },
 
         "0-200": {},
@@ -103,18 +104,58 @@ MASTER_BUDGET = {
     },
 
     "Plain Plug Gauge": {
-        "0.5-60": {},
-        "60-200": {}
+
+    "0.5-60": {
+
+        "Accuracy of DCT": {
+            "value": 0.0,
+            "distribution": "Rectangular",
+            "dof": float("inf")
+        },
+
+        "Uncertainty of DCT": {
+            "value": 0.0,
+            "distribution": "Normal",
+            "dof": float("inf")
+        },
+
+        "Resolution of DCT": {
+            "value": 0.0,
+            "distribution": "Rectangular",
+            "dof": float("inf")
+        }
     },
 
-    "Analog Dial": {
+    "60-200": {
+
+        "Accuracy of DCT": {
+            "value": 0.0,
+            "distribution": "Rectangular",
+            "dof": float("inf")
+        },
+
+        "Uncertainty of DCT": {
+            "value": 0.0,
+            "distribution": "Normal",
+            "dof": float("inf")
+        },
+
+        "Resolution of DCT": {
+            "value": 0.0,
+            "distribution": "Rectangular",
+            "dof": float("inf")
+        }
+    }
+},
+
+"Analog Dial": {
         "0-1": {},
         "0-10": {}
     },
 
-    "Digital Dial": {
+"Digital Dial": {
         "0-25": {}
-    }
+}
 }
 
 
