@@ -227,11 +227,40 @@ st.write(
 
 st.subheader("Repeatability Readings")
 
-r1 = st.number_input("Reading 1")
-r2 = st.number_input("Reading 2")
-r3 = st.number_input("Reading 3")
-r4 = st.number_input("Reading 4")
-r5 = st.number_input("Reading 5")
+r1 = st.number_input(
+    "Reading 1",
+    value=0.0000,
+    step=0.0001,
+    format="%.4f"
+)
+
+r2 = st.number_input(
+    "Reading 2",
+    value=0.0000,
+    step=0.0001,
+    format="%.4f"
+)
+
+r3 = st.number_input(
+    "Reading 3",
+    value=0.0000,
+    step=0.0001,
+    format="%.4f"
+)
+
+r4 = st.number_input(
+    "Reading 4",
+    value=0.0000,
+    step=0.0001,
+    format="%.4f"
+)
+
+r5 = st.number_input(
+    "Reading 5",
+    value=0.0000,
+    step=0.0001,
+    format="%.4f"
+)
 
 readings = [r1, r2, r3, r4, r5]
 
