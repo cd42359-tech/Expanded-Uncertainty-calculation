@@ -105,7 +105,26 @@ st.write(
     "Temperature Sensor Accuracy Contribution (µm) =",
     round(u_temp_accuracy, 3)
 )
+u_temp_uncertainty = TUncertainty * alpha_avg * L * 1000
 
+st.write(
+    "Temperature Sensor Uncertainty Contribution (µm) =",
+    round(u_temp_uncertainty, 3)
+)
+
+u_temp_difference = Tdiff * alpha_avg * L * 1000
+
+st.write(
+    "Temperature Difference Contribution (µm) =",
+    round(u_temp_difference, 3)
+)
+
+u_ref_temperature = TDEV * alpha_avg * L * 1000
+
+st.write(
+    "Reference Temperature Contribution (µm) =",
+    round(u_ref_temperature, 3)
+)
 
 
 #st.write(budget)
