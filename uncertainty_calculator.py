@@ -272,7 +272,32 @@ MASTER_BUDGET = {
 },
 
 "Digital Dial": {
-        "0-25": {}
+
+    "0-25": {
+
+        "Accuracy of Equipment (ULM)": {
+            "value": "dynamic_ulm",
+            "distribution": "Rectangular",
+            "dof": float("inf")
+        },
+
+        "Uncertainty of Equipment Calibration (ULM)": {
+            "value": 0.900,
+            "distribution": "Normal",
+            "dof": float("inf")
+        },
+
+        "Resolution of Equipment (ULM)": {
+            "value": 0.1,
+            "distribution": "Rectangular",
+            "dof": float("inf")
+        },
+
+        "Resolution of Dial Gauge": {
+            "value": 1.0,
+            "distribution": "Rectangular",
+            "dof": float("inf")
+        }
     }
 }
 
@@ -505,6 +530,9 @@ for contributor, details in budget.items():
 
     if value == "dynamic_dct":
         value = 0.8 + (0.2 * L)
+
+    elif value == "dynamic_ulm":
+        value = 0.5 + (L / 1000)
 
     distribution = details["distribution"]
 
