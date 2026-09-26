@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 
 MASTER_BUDGET = {
     "Micrometer": {
@@ -143,7 +144,22 @@ budget_data = [
     ["Reference Temperature", u_ref_temperature, "Rectangular", float("inf")],
     ["Coefficient of Expansion", u_alpha_diff, "Rectangular", float("inf")]
 ]
-st.write(budget_data)
+budget_df = pd.DataFrame(
+    budget_data,
+    columns=[
+        "Contributor",
+        "Value (µm)",
+        "Distribution",
+        "DOF"
+    ]
+)
+
+st.subheader("Uncertainty Budget")
+
+st.dataframe(
+    budget_df,
+    use_container_width=True
+)
 
 #st.write(budget)
 
