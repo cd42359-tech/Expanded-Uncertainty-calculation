@@ -385,7 +385,7 @@ st.write(round(Uc, 4), "µm")
 
 veff_denominator = 0
 
-for _, _, _, std_unc, dof in standard_uncertainties:
+for _, _, _, _, std_unc, dof in standard_uncertainties:
 
     if dof != float("inf") and std_unc > 0:
         veff_denominator += (std_unc ** 4) / dof
