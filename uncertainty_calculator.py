@@ -148,50 +148,73 @@ MASTER_BUDGET = {
 
     "Plain Plug Gauge": {
 
-        "0.5-60": {
+    "0.5-60": {
 
-            "Accuracy of DCT": {
-                "value": 0.0,
-                "distribution": "Rectangular",
-                "dof": float("inf")
-            },
-
-            "Uncertainty of DCT": {
-                "value": 0.0,
-                "distribution": "Normal",
-                "dof": float("inf")
-            },
-
-            "Resolution of DCT": {
-                "value": 0.0,
-                "distribution": "Rectangular",
-                "dof": float("inf")
-            }
+        "Accuracy of Equipment": {
+            "value": 0.5,
+            "distribution": "Rectangular",
+            "dof": float("inf")
         },
 
-        "60-200": {
+        "Uncertainty of Equipment Calibration": {
+            "value": 0.5,
+            "distribution": "Normal",
+            "dof": float("inf")
+        },
 
-            "Accuracy of DCT": {
-                "value": 0.0,
-                "distribution": "Rectangular",
-                "dof": float("inf")
-            },
+        "Accuracy of Slip Gauge": {
+            "value": 0.4242640687,
+            "distribution": "Rectangular",
+            "dof": float("inf")
+        },
 
-            "Uncertainty of DCT": {
-                "value": 0.0,
-                "distribution": "Normal",
-                "dof": float("inf")
-            },
+        "Uncertainty of Slip Gauge": {
+            "value": 0.1838477631,
+            "distribution": "Normal",
+            "dof": float("inf")
+        },
 
-            "Resolution of DCT": {
-                "value": 0.0,
-                "distribution": "Rectangular",
-                "dof": float("inf")
-            }
+        "Resolution of Comparator": {
+            "value": 0.1,
+            "distribution": "Rectangular",
+            "dof": float("inf")
         }
     },
 
-    "Analog Dial": {
+    "60-200": {
+
+        "Accuracy of Equipment": {
+            "value": 0.5,
+            "distribution": "Rectangular",
+            "dof": float("inf")
+        },
+
+        "Uncertainty of Equipment Calibration": {
+            "value": 0.5,
+            "distribution": "Normal",
+            "dof": float("inf")
+        },
+
+        "Accuracy of Slip Gauge": {
+            "value": 0.4242640687,
+            "distribution": "Rectangular",
+            "dof": float("inf")
+        },
+
+        "Uncertainty of Slip Gauge": {
+            "value": 0.1838477631,
+            "distribution": "Normal",
+            "dof": float("inf")
+        },
+
+        "Resolution of Comparator": {
+            "value": 0.1,
+            "distribution": "Rectangular",
+            "dof": float("inf")
+        }
+    }
+},
+"Analog Dial": {
         "0-1": {},
         "0-10": {}
     },
