@@ -327,6 +327,9 @@ for item in budget_data:
 
     contributor = item[0]
     value = item[1]
+
+if isinstance(value, str):
+    continue
     distribution = item[2]
     dof = item[3]
 
