@@ -84,18 +84,61 @@ MASTER_BUDGET = {
     "Caliper": {
 
         "0-150": {
-            "Accuracy of Caliper Checker": {"value": 5.0, "distribution": "Rectangular", "dof": float("inf")},
-            "Uncertainty of Caliper Checker": {"value": 3.8, "distribution": "Normal", "dof": float("inf")},
-            "Accuracy of 5mm Master Ring": {"value": 1.1, "distribution": "Rectangular", "dof": float("inf")},
-            "Uncertainty of 5mm Master Ring": {"value": 2.0, "distribution": "Normal", "dof": float("inf")},
-            "Accuracy of 25mm Master Ring": {"value": 0.2, "distribution": "Rectangular", "dof": float("inf")},
-            "Uncertainty of 25mm Master Ring": {"value": 1.0, "distribution": "Normal", "dof": float("inf")},
-            "Accuracy of 10mm Pin": {"value": 0.5, "distribution": "Rectangular", "dof": float("inf")},
-            "Uncertainty of 10mm Pin": {"value": 0.7, "distribution": "Normal", "dof": float("inf")},
-            "Accuracy of Slip Gauge 25mm": {"value": 0.3, "distribution": "Rectangular", "dof": float("inf")},
-            "Uncertainty of Slip Gauge 25mm": {"value": 0.1, "distribution": "Normal", "dof": float("inf")},
-            "Resolution of Vernier": {"value": "dynamic", "distribution": "Rectangular", "dof": float("inf")}
-        }            
+            "Accuracy of Caliper Checker": {
+                "value": 5.0,
+                "distribution": "Rectangular",
+                "dof": float("inf")
+            },
+            "Uncertainty of Caliper Checker": {
+                "value": 3.8,
+                "distribution": "Normal",
+                "dof": float("inf")
+            },
+            "Accuracy of 5mm Master Ring": {
+                "value": 1.1,
+                "distribution": "Rectangular",
+                "dof": float("inf")
+            },
+            "Uncertainty of 5mm Master Ring": {
+                "value": 2.0,
+                "distribution": "Normal",
+                "dof": float("inf")
+            },
+            "Accuracy of 25mm Master Ring": {
+                "value": 0.2,
+                "distribution": "Rectangular",
+                "dof": float("inf")
+            },
+            "Uncertainty of 25mm Master Ring": {
+                "value": 1.0,
+                "distribution": "Normal",
+                "dof": float("inf")
+            },
+            "Accuracy of 10mm Pin": {
+                "value": 0.5,
+                "distribution": "Rectangular",
+                "dof": float("inf")
+            },
+            "Uncertainty of 10mm Pin": {
+                "value": 0.7,
+                "distribution": "Normal",
+                "dof": float("inf")
+            },
+            "Accuracy of Slip Gauge 25mm": {
+                "value": 0.3,
+                "distribution": "Rectangular",
+                "dof": float("inf")
+            },
+            "Uncertainty of Slip Gauge 25mm": {
+                "value": 0.1,
+                "distribution": "Normal",
+                "dof": float("inf")
+            },
+            "Resolution of Vernier": {
+                "value": "dynamic",
+                "distribution": "Rectangular",
+                "dof": float("inf")
+            }
         },
 
         "0-200": {},
@@ -105,58 +148,59 @@ MASTER_BUDGET = {
 
     "Plain Plug Gauge": {
 
-    "0.5-60": {
+        "0.5-60": {
 
-        "Accuracy of DCT": {
-            "value": 0.0,
-            "distribution": "Rectangular",
-            "dof": float("inf")
+            "Accuracy of DCT": {
+                "value": 0.0,
+                "distribution": "Rectangular",
+                "dof": float("inf")
+            },
+
+            "Uncertainty of DCT": {
+                "value": 0.0,
+                "distribution": "Normal",
+                "dof": float("inf")
+            },
+
+            "Resolution of DCT": {
+                "value": 0.0,
+                "distribution": "Rectangular",
+                "dof": float("inf")
+            }
         },
 
-        "Uncertainty of DCT": {
-            "value": 0.0,
-            "distribution": "Normal",
-            "dof": float("inf")
-        },
+        "60-200": {
 
-        "Resolution of DCT": {
-            "value": 0.0,
-            "distribution": "Rectangular",
-            "dof": float("inf")
+            "Accuracy of DCT": {
+                "value": 0.0,
+                "distribution": "Rectangular",
+                "dof": float("inf")
+            },
+
+            "Uncertainty of DCT": {
+                "value": 0.0,
+                "distribution": "Normal",
+                "dof": float("inf")
+            },
+
+            "Resolution of DCT": {
+                "value": 0.0,
+                "distribution": "Rectangular",
+                "dof": float("inf")
+            }
         }
     },
 
-    "60-200": {
-
-        "Accuracy of DCT": {
-            "value": 0.0,
-            "distribution": "Rectangular",
-            "dof": float("inf")
-        },
-
-        "Uncertainty of DCT": {
-            "value": 0.0,
-            "distribution": "Normal",
-            "dof": float("inf")
-        },
-
-        "Resolution of DCT": {
-            "value": 0.0,
-            "distribution": "Rectangular",
-            "dof": float("inf")
-        }
-    }
-},
-
-"Analog Dial": {
+    "Analog Dial": {
         "0-1": {},
         "0-10": {}
     },
 
-"Digital Dial": {
+    "Digital Dial": {
         "0-25": {}
+    }
 }
-}
+
 
 
 def get_budget(instrument, selected_range):
