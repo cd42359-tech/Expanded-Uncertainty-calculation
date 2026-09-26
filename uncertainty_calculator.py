@@ -215,11 +215,63 @@ MASTER_BUDGET = {
     }
 },
 "Analog Dial": {
-        "0-1": {},
-        "0-10": {}
+
+    "0-1": {
+
+        "Accuracy of Equipment (DCT)": {
+            "value": "dynamic_dct",
+            "distribution": "Rectangular",
+            "dof": float("inf")
+        },
+
+        "Uncertainty of Equipment Calibration (DCT)": {
+            "value": 0.400,
+            "distribution": "Normal",
+            "dof": float("inf")
+        },
+
+        "Resolution of Equipment (DCT)": {
+            "value": 0.1,
+            "distribution": "Rectangular",
+            "dof": float("inf")
+        },
+
+        "Resolution of Dial Gauge": {
+            "value": 1.0,
+            "distribution": "Rectangular",
+            "dof": float("inf")
+        }
     },
 
-    "Digital Dial": {
+    "0-10": {
+
+        "Accuracy of Equipment (DCT)": {
+            "value": "dynamic_dct",
+            "distribution": "Rectangular",
+            "dof": float("inf")
+        },
+
+        "Uncertainty of Equipment Calibration (DCT)": {
+            "value": 0.400,
+            "distribution": "Normal",
+            "dof": float("inf")
+        },
+
+        "Resolution of Equipment (DCT)": {
+            "value": 0.1,
+            "distribution": "Rectangular",
+            "dof": float("inf")
+        },
+
+        "Resolution of Dial Gauge": {
+            "value": 1.0,
+            "distribution": "Rectangular",
+            "dof": float("inf")
+        }
+    }
+},
+
+"Digital Dial": {
         "0-25": {}
     }
 }
@@ -450,6 +502,9 @@ budget_data.append(
 for contributor, details in budget.items():
 
     value = details["value"]
+
+    if value == "dynamic_dct":
+        value = 0.8 + (0.2 * L)
 
     distribution = details["distribution"]
 
