@@ -81,6 +81,9 @@ actual_temp = st.number_input(
 )
 
 st.write("Actual Temperature =", actual_temp, "°C")
+TDEV = abs(actual_temp - 20)
+
+st.write("Temperature Deviation from 20°C =", TDEV, "°C")
 
 #st.write(budget)
 
