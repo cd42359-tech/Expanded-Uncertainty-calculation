@@ -126,6 +126,24 @@ st.write(
     round(u_ref_temperature, 3)
 )
 
+st.subheader("Dynamic Temperature Contributors")
+alpha_diff = 0.0000068
+
+u_alpha_diff = alpha_diff * TDEV * L * 1000
+
+st.write(
+    "Coefficient of Expansion Contribution (µm) =",
+    round(u_alpha_diff, 3)
+)
+
+budget_data = [
+    ["Temperature Accuracy", u_temp_accuracy, "Rectangular", float("inf")],
+    ["Temperature Uncertainty", u_temp_uncertainty, "Normal", float("inf")],
+    ["Temperature Difference", u_temp_difference, "Rectangular", float("inf")],
+    ["Reference Temperature", u_ref_temperature, "Rectangular", float("inf")],
+    ["Coefficient of Expansion", u_alpha_diff, "Rectangular", float("inf")]
+]
+st.write(budget_data)
 
 #st.write(budget)
 
