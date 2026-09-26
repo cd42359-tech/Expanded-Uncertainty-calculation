@@ -138,6 +138,16 @@ st.write(
     round(u_alpha_diff, 3)
 )
 
+readings = [r1, r2, r3, r4, r5]
+
+mean_reading = np.mean(readings)
+
+std_dev = np.std(readings, ddof=1)
+
+u_repeatability = std_dev / np.sqrt(len(readings))
+
+
+
 budget_data = [
     ["Repeatability", u_repeatability, "Normal", 4],
 
@@ -255,13 +265,7 @@ r5 = st.number_input(
     format="%.4f"
 )
 
-readings = [r1, r2, r3, r4, r5]
 
-mean_reading = np.mean(readings)
-
-std_dev = np.std(readings, ddof=1)
-
-u_repeatability = std_dev / np.sqrt(len(readings))
 
 st.subheader("Repeatability Results")
 
