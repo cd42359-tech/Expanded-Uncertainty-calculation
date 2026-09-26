@@ -3,85 +3,85 @@ import pandas as pd
 import numpy as np
 from scipy.stats import t
 
+
 MASTER_BUDGET = {
+
     "Micrometer": {
-    "0-25": {
 
-        "Accuracy of Slip Gauges": {
-            "value": 0.300,
-            "distribution": "Rectangular",
-            "dof": float("inf")
+        "0-25": {
+            "Accuracy of Slip Gauges": {
+                "value": 0.300,
+                "distribution": "Rectangular",
+                "dof": float("inf")
+            },
+            "Uncertainty of Slip Gauge from Certificate": {
+                "value": 0.251,
+                "distribution": "Normal",
+                "dof": float("inf")
+            },
+            "Resolution of Micrometer": {
+                "value": 1.0,
+                "distribution": "Rectangular",
+                "dof": float("inf")
+            }
         },
 
-        "Uncertainty of Slip Gauge from Certificate": {
-            "value": 0.251,
-            "distribution": "Normal",
-            "dof": float("inf")
+        "25-50": {
+            "Accuracy of Slip Gauges": {
+                "value": 0.300,
+                "distribution": "Rectangular",
+                "dof": float("inf")
+            },
+            "Uncertainty of Slip Gauge from Certificate": {
+                "value": 0.251,
+                "distribution": "Normal",
+                "dof": float("inf")
+            },
+            "Resolution of Micrometer": {
+                "value": 1.0,
+                "distribution": "Rectangular",
+                "dof": float("inf")
+            }
         },
 
-        "Resolution of Micrometer": {
-            "value": 1.0,
-            "distribution": "Rectangular",
-            "dof": float("inf")
+        "50-75": {
+            "Accuracy of Slip Gauges": {
+                "value": 0.300,
+                "distribution": "Rectangular",
+                "dof": float("inf")
+            },
+            "Uncertainty of Slip Gauge from Certificate": {
+                "value": 0.251,
+                "distribution": "Normal",
+                "dof": float("inf")
+            },
+            "Resolution of Micrometer": {
+                "value": 1.0,
+                "distribution": "Rectangular",
+                "dof": float("inf")
+            }
+        },
+
+        "75-100": {
+            "Accuracy of Slip Gauges": {
+                "value": 0.300,
+                "distribution": "Rectangular",
+                "dof": float("inf")
+            },
+            "Uncertainty of Slip Gauge from Certificate": {
+                "value": 0.251,
+                "distribution": "Normal",
+                "dof": float("inf")
+            },
+            "Resolution of Micrometer": {
+                "value": 1.0,
+                "distribution": "Rectangular",
+                "dof": float("inf")
+            }
         }
-
     },
 
-    "25-50": {
-    "Accuracy of Slip Gauges": {
-        "value": 0.300,
-        "distribution": "Rectangular",
-        "dof": float("inf")
-    },
-    "Uncertainty of Slip Gauge from Certificate": {
-        "value": 0.251,
-        "distribution": "Normal",
-        "dof": float("inf")
-    },
-    "Resolution of Micrometer": {
-        "value": 1.0,
-        "distribution": "Rectangular",
-        "dof": float("inf")
-    }
-},
-
-"50-75": {
-    "Accuracy of Slip Gauges": {
-        "value": 0.300,
-        "distribution": "Rectangular",
-        "dof": float("inf")
-    },
-    "Uncertainty of Slip Gauge from Certificate": {
-        "value": 0.251,
-        "distribution": "Normal",
-        "dof": float("inf")
-    },
-    "Resolution of Micrometer": {
-        "value": 1.0,
-        "distribution": "Rectangular",
-        "dof": float("inf")
-    }
-},
-
-"75-100": {
-    "Accuracy of Slip Gauges": {
-        "value": 0.300,
-        "distribution": "Rectangular",
-        "dof": float("inf")
-    },
-    "Uncertainty of Slip Gauge from Certificate": {
-        "value": 0.251,
-        "distribution": "Normal",
-        "dof": float("inf")
-    },
-    "Resolution of Micrometer": {
-        "value": 1.0,
-        "distribution": "Rectangular",
-        "dof": float("inf")
-    }
-},
-
-"Caliper": {
+    "Caliper": {
 
         "0-150": {
             "Accuracy of Caliper Checker": {"value": 5.0, "distribution": "Rectangular", "dof": float("inf")},
@@ -102,7 +102,6 @@ MASTER_BUDGET = {
         "0-600": {}
     },
 
-
     "Plain Plug Gauge": {
         "0.5-60": {},
         "60-200": {}
@@ -117,6 +116,7 @@ MASTER_BUDGET = {
         "0-25": {}
     }
 }
+
 
 def get_budget(instrument, selected_range):
     return MASTER_BUDGET[instrument][selected_range]
