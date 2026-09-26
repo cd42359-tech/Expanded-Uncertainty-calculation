@@ -300,7 +300,7 @@ MASTER_BUDGET = {
         }
     }
 }
-
+}
 
 
 def get_budget(instrument, selected_range):
