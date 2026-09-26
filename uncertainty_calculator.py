@@ -81,7 +81,7 @@ MASTER_BUDGET = {
     }
 },
 
-    "Caliper": {
+"Caliper": {
 
         "0-150": {
             "Accuracy of Caliper Checker": {"value": 5.0, "distribution": "Rectangular", "dof": float("inf")},
