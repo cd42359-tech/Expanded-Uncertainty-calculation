@@ -437,7 +437,7 @@ st.write(
 st.subheader("Dynamic Temperature Contributors")
 alpha_diff = 0.0000068
 
-u_alpha_diff = alpha_diff * TDEV * L * 1000
+u_alpha_diff = alpha_diff * 1 * L * 1000
 
 st.write(
     "Coefficient of Expansion Contribution (µm) =",
