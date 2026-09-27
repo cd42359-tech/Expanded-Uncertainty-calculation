@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from scipy.stats import t
+from io import BytesIO
 
 
 MASTER_BUDGET = {
@@ -560,6 +561,37 @@ st.dataframe(
     budget_df,
     use_container_width=True
 )
+
+
+
+# Export Uncertainty Budget to Excel
+
+output = BytesIO()
+
+with pd.ExcelWriter(output, engine="openpyxl") as writer:
+
+    budget_df.to_excel(
+        writer,
+        sheet_name="Uncertainty Budget",
+        index=False
+    )
+
+    budget_std_df.to_excel(
+        writer,
+        sheet_name="Std Uncertainty",
+        index=False
+    )
+
+excel_data = output.getvalue()
+
+st.download_button(
+    label="Download Budget Excel",
+    data=excel_data,
+    file_name=f"{instrument}_{selected_range}_Budget.xlsx",
+    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+)
+
+
 
 standard_uncertainties = []
 
