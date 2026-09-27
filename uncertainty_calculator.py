@@ -334,13 +334,13 @@ MASTER_BUDGET = {
         },
 
         "Accuracy of Slip Gauge": {
-            "value": 0.4242640687,
+            "value": 0.5,
             "distribution": "Rectangular",
             "dof": float("inf")
         },
 
         "Uncertainty of Slip Gauge": {
-            "value": 0.1838477631,
+            "value": 0.4,
             "distribution": "Normal",
             "dof": float("inf")
         },
@@ -607,7 +607,17 @@ st.write(
 st.subheader("Dynamic Temperature Contributors")
 
 
-u_alpha_diff = alpha_diff * 1 * L * 1000
+
+if instrument in ["Micrometer", "Plain Plug Gauge"]:
+
+    u_alpha_diff = alpha_diff * L * 1000
+
+else:
+
+    u_alpha_diff = ((alpha_diff * 5 * L) / 100) * 1000
+
+
+
 
 st.write(
     "Coefficient of Expansion Contribution (µm) =",
