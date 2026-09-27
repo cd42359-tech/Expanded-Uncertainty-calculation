@@ -672,10 +672,18 @@ mean_reading = np.mean(readings)
 
 std_dev = np.std(readings, ddof=1)
 
-u_repeatability = std_dev / np.sqrt(len(readings))
+u_repeatability = (std_dev * 1000) / np.sqrt(len(readings))
 
 st.write("Mean =", round(mean_reading, 4))
-st.write("Standard Deviation =", round(std_dev, 4))
+st.write(
+    "Standard Deviation (mm) =",
+    round(std_dev, 6)
+)
+
+st.write(
+    "Standard Deviation (µm) =",
+    round(std_dev * 1000, 3)
+)
 st.write("Repeatability Uncertainty =", round(u_repeatability, 4))
 
 
