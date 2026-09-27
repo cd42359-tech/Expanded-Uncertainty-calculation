@@ -15,7 +15,7 @@ MASTER_BUDGET = {
                 "dof": float("inf")
             },
             "Uncertainty of Slip Gauge from Certificate": {
-                "value": 0.251,
+                "value": 0.100,
                 "distribution": "Normal",
                 "dof": float("inf")
             },
@@ -33,7 +33,7 @@ MASTER_BUDGET = {
                 "dof": float("inf")
             },
             "Uncertainty of Slip Gauge from Certificate": {
-                "value": 0.251,
+                "value": 0.156,
                 "distribution": "Normal",
                 "dof": float("inf")
             },
@@ -51,7 +51,7 @@ MASTER_BUDGET = {
                 "dof": float("inf")
             },
             "Uncertainty of Slip Gauge from Certificate": {
-                "value": 0.251,
+                "value": 0.172,
                 "distribution": "Normal",
                 "dof": float("inf")
             },
