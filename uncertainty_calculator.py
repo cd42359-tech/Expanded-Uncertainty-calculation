@@ -585,7 +585,7 @@ for item in budget_data:
 
     elif distribution == "Normal":
 
-        std_unc = value
+        std_unc = value / 2
 
     else:
 
