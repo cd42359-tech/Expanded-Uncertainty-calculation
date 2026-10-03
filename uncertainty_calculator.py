@@ -763,21 +763,21 @@ for item in budget_data:
     distribution = item[2]
     dof = item[3]
 
-    if "Resolution" in contributor:
+    if contributor == "Repeatability":
 
-        std_unc = value / (2 * (3 ** 0.5))
+    std_unc = value
 
-    elif distribution == "Rectangular":
+elif "Resolution" in contributor:
 
-        std_unc = value / (3 ** 0.5)
+    std_unc = value / (2 * (3 ** 0.5))
 
-    elif distribution == "Normal":
+elif distribution == "Rectangular":
 
-        std_unc = value / 2
+    std_unc = value / (3 ** 0.5)
 
-    else:
+elif distribution == "Normal":
 
-       std_unc = value
+    std_unc = value / 2
 
 
     ci = 1
