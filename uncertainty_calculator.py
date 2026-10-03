@@ -763,7 +763,7 @@ for item in budget_data:
     distribution = item[2]
     dof = item[3]
 
-    if contributor == "Repeatability":
+if contributor == "Repeatability":
 
     std_unc = value
 
