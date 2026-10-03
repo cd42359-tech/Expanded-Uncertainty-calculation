@@ -820,30 +820,6 @@ st.dataframe(
 
 # Export Uncertainty Budget to Excel
 
-output = BytesIO()
-
-with pd.ExcelWriter(output, engine="openpyxl") as writer:
-
-    budget_df.to_excel(
-        writer,
-        sheet_name="Uncertainty Budget",
-        index=False
-    )
-
-    budget_std_df.to_excel(
-        writer,
-        sheet_name="Std Uncertainty",
-        index=False
-    )
-
-excel_data = output.getvalue()
-
-st.download_button(
-    label="Download Budget Excel",
-    data=excel_data,
-    file_name=f"{instrument}_{selected_range}_Budget.xlsx",
-    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-)
 
 
 
@@ -920,6 +896,35 @@ summary_df = pd.DataFrame({
         round(expanded_uncertainty, 4)
     ]
 })
+
+
+output = BytesIO()
+
+with pd.ExcelWriter(output, engine="openpyxl") as writer:
+
+    budget_df.to_excel(
+        writer,
+        sheet_name="Uncertainty Budget",
+        index=False
+    )
+
+    budget_std_df.to_excel(
+        writer,
+        sheet_name="Std Uncertainty",
+        index=False
+    )
+
+
+
+excel_data = output.getvalue()
+
+st.download_button(
+    label="Download Budget Excel",
+    data=excel_data,
+    file_name=f"{instrument}_{selected_range}_Budget.xlsx",
+    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+)
+
 
 st.table(summary_df)
 
