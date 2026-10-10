@@ -767,6 +767,9 @@ for item in budget_data:
     if contributor == "Repeatability":
 
         std_unc = value
+    elif contributor == "Temperature Accuracy":
+
+        std_unc = (value / 2) / np.sqrt(3)
 
     elif "Resolution" in contributor:
 
