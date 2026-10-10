@@ -760,25 +760,25 @@ for item in budget_data:
 
     if not isinstance(value, (int, float)):
         continue
+
     distribution = item[2]
     dof = item[3]
 
-if contributor == "Repeatability":
+    if contributor == "Repeatability":
 
-    std_unc = value
+        std_unc = value
 
-elif "Resolution" in contributor:
+    elif "Resolution" in contributor:
 
-    std_unc = value / (2 * (3 ** 0.5))
+        std_unc = value / (2 * np.sqrt(3))
 
-elif distribution == "Rectangular":
+    elif distribution == "Rectangular":
 
-    std_unc = value / (3 ** 0.5)
+        std_unc = value / np.sqrt(3)
 
-elif distribution == "Normal":
+    elif distribution == "Normal":
 
-    std_unc = value / 2
-
+        std_unc = value / 2
 
     ci = 1
 
@@ -792,7 +792,6 @@ elif distribution == "Normal":
             dof
         ]
     )
-
 
 
 
