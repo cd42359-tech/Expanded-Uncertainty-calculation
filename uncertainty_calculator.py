@@ -136,7 +136,7 @@ MASTER_BUDGET = {
                 "dof": float("inf")
             },
             "Resolution of Vernier": {
-                "value": "dynamic",
+                "value": "10.0",
                 "distribution": "Rectangular",
                 "dof": float("inf")
             }
@@ -194,7 +194,7 @@ MASTER_BUDGET = {
         "dof": float("inf")
     },
     "Resolution of Vernier": {
-        "value": "dynamic",
+        "value": "10.0",
         "distribution": "Rectangular",
         "dof": float("inf")
     }
@@ -252,7 +252,7 @@ MASTER_BUDGET = {
         "dof": float("inf")
     },
     "Resolution of Vernier": {
-        "value": "dynamic",
+        "value": "10.0",
         "distribution": "Rectangular",
         "dof": float("inf")
     }
