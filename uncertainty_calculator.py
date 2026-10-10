@@ -843,17 +843,19 @@ st.write(
 #   f"Effective Degrees of Freedom (Veff) = {veff:.2f}"
 #)
 
-veff_denominator = 0
 
-for _, _, _, _, std_unc, dof in standard_uncertainties:
 
-    if dof != float("inf") and std_unc > 0:
-        veff_denominator += (std_unc ** 4) / dof
+repeatability_std_unc = u_repeatability
+repeatability_dof = 4
 
-if veff_denominator > 0:
-    veff = (Uc ** 4) / veff_denominator
-else:
-    veff = float("inf")
+veff = (
+    (Uc ** 4) * repeatability_dof
+) / (
+    repeatability_std_unc ** 4
+)
+
+
+
 
 st.subheader("Effective Degrees of Freedom (Veff)")
 
@@ -863,11 +865,8 @@ else:
     st.write(round(veff, 2))
 
 
+k = 2
 
-if veff == float("inf"):
-    k = 2
-else:
-    k = t.ppf(0.975, veff)
 
 st.subheader("Coverage Factor (k)")
 st.write(round(k, 4))
