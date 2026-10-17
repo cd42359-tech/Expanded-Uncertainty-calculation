@@ -334,13 +334,13 @@ MASTER_BUDGET = {
         },
 
         "Accuracy of Slip Gauge": {
-            "value": 0.5,
+            "value": 0.25,
             "distribution": "Rectangular",
             "dof": float("inf")
         },
 
         "Uncertainty of Slip Gauge": {
-            "value": 0.4,
+            "value": 0.13,
             "distribution": "Normal",
             "dof": float("inf")
         },
