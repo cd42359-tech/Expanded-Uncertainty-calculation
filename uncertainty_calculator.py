@@ -361,7 +361,7 @@ MASTER_BUDGET = {
         },
 
         "Uncertainty of Equipment Calibration": {
-            "value": 0.5,
+            "value": 0.4,
             "distribution": "Normal",
             "dof": float("inf")
         },
