@@ -310,7 +310,7 @@ MASTER_BUDGET = {
         "dof": float("inf")
     },
     "Resolution of Vernier": {
-        "value": 10.0,
+        "value": 20.0,
         "distribution": "Rectangular",
         "dof": float("inf")
        }
