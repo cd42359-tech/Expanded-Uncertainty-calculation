@@ -686,6 +686,8 @@ st.write(
 )
 st.write("Repeatability Uncertainty =", round(u_repeatability, 4))
 
+st.write("DEBUG Std Dev =", std_dev)
+st.write("DEBUG Calculated Repeatability =", u_repeatability)
 
 budget_data = []
 
