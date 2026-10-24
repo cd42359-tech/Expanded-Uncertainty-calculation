@@ -3,6 +3,9 @@ import pandas as pd
 import numpy as np
 from scipy.stats import t
 from io import BytesIO
+from reportlab.lib.pagesizes import A4
+from reportlab.pdfgen import canvas
+
 
 
 MASTER_BUDGET = {
@@ -924,7 +927,7 @@ with pd.ExcelWriter(output, engine="openpyxl") as writer:
 
     summary_df.to_excel(
     writer,
-    sheet_name="Summary",
+    sheet_name="Summary Report",
     index=False
     )
 
@@ -939,9 +942,39 @@ st.download_button(
 )
 
 
+
+
 st.table(summary_df)
 
+pdf_buffer = BytesIO()
 
+c = canvas.Canvas(pdf_buffer, pagesize=A4)
+
+c.setFont("Helvetica-Bold", 14)
+c.drawString(50, 800, "NABL UNCERTAINTY CALCULATION REPORT")
+
+c.setFont("Helvetica", 11)
+
+y = 760
+
+for _, row in summary_df.iterrows():
+    c.drawString(
+        50,
+        y,
+        f"{row['Parameter']} : {row['Value']}"
+    )
+    y -= 25
+
+c.save()
+
+pdf_data = pdf_buffer.getvalue()
+
+st.download_button(
+    label="Download PDF Report",
+    data=pdf_data,
+    file_name=f"{instrument}_{selected_range}_Report.pdf",
+    mime="application/pdf"
+)
 
 
 
