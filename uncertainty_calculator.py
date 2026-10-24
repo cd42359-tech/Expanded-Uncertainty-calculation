@@ -1090,14 +1090,6 @@ pdf_placeholder.download_button(
 )
 
 
-st.subheader("Expanded Uncertainty")
-
-st.write(
-    round(expanded_uncertainty, 4),
-    "µm"
-)
-
-
 #st.write(budget)
 
 #st.success(f"Selected Instrument : {instrument}")
