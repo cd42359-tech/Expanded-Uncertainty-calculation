@@ -884,22 +884,27 @@ summary_df = pd.DataFrame({
         "Instrument",
         "Range",
         "Measurement Size (mm)",
+        "Actual Temperature (°C)",
+        "Temperature Deviation (°C)",
         "Combined Standard Uncertainty (Uc)",
         "Effective Degrees of Freedom (Veff)",
         "Coverage Factor (k)",
-        "Expanded Uncertainty (µm)"
+        "Expanded Uncertainty",
+        "Statement of Uncertainty"
     ],
     "Value": [
         instrument,
         selected_range,
-        L,
+        round(L, 3),
+        round(actual_temp, 2),
+        round(TDEV, 2),
         round(Uc, 4),
         "∞" if veff == float("inf") else round(veff, 2),
         round(k, 4),
-        round(expanded_uncertainty, 4)
+        f"{round(expanded_uncertainty,4)} µm",
+        f"±{round(expanded_uncertainty,4)} µm at k={k} (Approx. 95% Confidence Level)"
     ]
 })
-
 
 output = BytesIO()
 
