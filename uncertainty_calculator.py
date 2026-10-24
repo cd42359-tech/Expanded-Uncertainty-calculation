@@ -951,47 +951,66 @@ pdf_buffer = BytesIO()
 c = canvas.Canvas(pdf_buffer, pagesize=A4)
 
 
-# ===== PDF HEADER =====
 
+def draw_header(c, width):
+    # Left Logo
+    c.drawImage(
+        "Cummins Logo.jpg",
+        30, 730,
+        width=80,
+        height=80,
+        preserveAspectRatio=True,
+        mask='auto'
+    )
+
+    # Right Logo
+    c.drawImage(
+        "Nabl logo.jpg",
+        470, 710,
+        width=90,
+        height=110,
+        preserveAspectRatio=True,
+        mask='auto'
+    )
+
+    # Header Text
+    c.setFont("Helvetica-Bold", 22)
+    c.drawCentredString(width/2, 800, "Cummins India Limited")
+
+    c.setFont("Helvetica", 14)
+    c.drawCentredString(width/2, 775, "Kothrud, Pune 411038")
+
+    c.setFont("Helvetica-BoldOblique", 18)
+    c.drawCentredString(width/2, 745, "Standards Laboratory")
+
+    c.setFont("Helvetica-Bold", 16)
+    c.drawCentredString(width/2, 715, "UNCERTAINTY CALCULATION REPORT")
+
+    c.line(170, 708, 425, 708)
+
+
+def draw_footer(c, width, page_no):
+    c.setFont("Helvetica", 9)
+    c.drawString(
+        40,
+        20,
+        "Cummins India Ltd. - Standards Laboratory"
+    )
+
+    c.drawRightString(
+        width - 40,
+        20,
+        f"Page {page_no}"
+    )
+
+
+    
 width, height = A4
 
-# Left Logo - Cummins
-c.drawImage(
-    "Cummins Logo.jpg",
-    30, 730,
-    width=80,
-    height=80,
-    preserveAspectRatio=True,
-    mask='auto'
-)
+draw_header(c, width)
 
-# Right Logo - NABL
-c.drawImage(
-    "Nabl logo.jpg",
-    470, 710,
-    width=90,
-    height=110,
-    preserveAspectRatio=True,
-    mask='auto'
-)
+page_no = 1
 
-# Header Text
-c.setFont("Helvetica-Bold", 22)
-c.drawCentredString(width/2, 810, "Cummins India Limited")
-
-c.setFont("Helvetica", 14)
-c.drawCentredString(width/2, 785, "Kothrud, Pune 411038")
-
-c.setFont("Helvetica-BoldOblique", 18)
-c.drawCentredString(width/2, 755, "Standards Laboratory")
-
-c.setFont("Helvetica-Bold", 16)
-c.drawCentredString(width/2, 725, "UNCERTAINTY CALCULATION REPORT")
-
-# Underline
-c.line(170, 718, 425, 718)
-
-# Start report content below header
 c.setFont("Helvetica", 11)
 y = 680
 
@@ -1042,9 +1061,14 @@ for _, row in budget_df.iterrows():
     y -= 15
 
 
+draw_footer(c, width, page_no)
 
 c.showPage()
-y = 800
+
+page_no += 1
+
+draw_header(c, width)
+y = 680
 
 
 
@@ -1117,7 +1141,7 @@ y -= 18
 
 c.drawString(50, y, "Expanded Uncertainty : U = k x Uc")
 
-
+draw_footer(c, width, page_no)
 
 c.save()
 
