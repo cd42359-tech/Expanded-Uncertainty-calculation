@@ -1003,11 +1003,10 @@ for _, row in budget_df.iterrows():
     y -= 15
 
 
-c.save()
-
 
 c.showPage()
 y = 800
+
 
 
 # =====================================
@@ -1078,6 +1077,15 @@ c.drawString(50, y, "Combined Uncertainty : Uc = sqrt(sum(ui^2))")
 y -= 18
 
 c.drawString(50, y, "Expanded Uncertainty : U = k x Uc")
+
+
+
+c.save()
+
+
+
+
+
 
 
 pdf_data = pdf_buffer.getvalue()
