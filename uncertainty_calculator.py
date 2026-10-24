@@ -948,6 +948,7 @@ st.table(summary_df)
 pdf_buffer = BytesIO()
 
 c = canvas.Canvas(pdf_buffer, pagesize=A4)
+c.setTitle("NABL Uncertainty Calculation Report")
 
 c.setFont("Helvetica-Bold", 14)
 c.drawString(50, 800, "NABL UNCERTAINTY CALCULATION REPORT")
@@ -964,7 +965,117 @@ for _, row in summary_df.iterrows():
     )
     y -= 25
 
+# =====================================
+# TYPE B CONTRIBUTION SECTION
+# =====================================
+
+y -= 20
+
+c.setFont("Helvetica-Bold", 12)
+c.drawString(50, y, "TYPE B CONTRIBUTIONS")
+
+y -= 25
+
+c.setFont("Helvetica-Bold", 9)
+c.drawString(50, y, "Source")
+c.drawString(320, y, "Distribution")
+c.drawString(430, y, "DOF")
+c.drawString(500, y, "Value")
+
+y -= 15
+
+c.setFont("Helvetica", 8)
+
+for _, row in budget_df.iterrows():
+
+    if row["Contributor"] == "Repeatability":
+        continue
+
+    if y < 60:
+        c.showPage()
+        y = 800
+
+    c.drawString(50, y, str(row["Contributor"])[:45])
+    c.drawString(320, y, str(row["Distribution"]))
+    c.drawString(430, y, str(row["DOF"]))
+    c.drawString(500, y, f"{row['Value (µm)']:.3f}")
+
+    y -= 15
+
+
 c.save()
+
+
+
+# =====================================
+# STANDARD UNCERTAINTY BUDGET
+# =====================================
+
+y -= 25
+
+c.setFont("Helvetica-Bold", 12)
+c.drawString(50, y, "STANDARD UNCERTAINTY BUDGET")
+
+y -= 25
+
+c.setFont("Helvetica-Bold", 8)
+
+c.drawString(50, y, "Contributor")
+c.drawString(320, y, "Distribution")
+c.drawString(430, y, "Std Unc")
+c.drawString(520, y, "DOF")
+
+y -= 15
+
+c.setFont("Helvetica", 8)
+
+for _, row in budget_std_df.iterrows():
+
+    if y < 60:
+        c.showPage()
+        y = 800
+
+    c.drawString(50, y, str(row["Contributor"])[:45])
+    c.drawString(320, y, str(row["Distribution"]))
+    c.drawString(430, y, f"{row['Std Uncertainty (µm)']:.4f}")
+    c.drawString(520, y, str(row["DOF"]))
+
+    y -= 15
+
+# =====================================
+# FORMULA REFERENCE
+# =====================================
+
+y -= 25
+
+if y < 150:
+    c.showPage()
+    y = 800
+
+c.setFont("Helvetica-Bold", 12)
+c.drawString(50, y, "FORMULA REFERENCE")
+
+y -= 25
+
+c.setFont("Helvetica", 9)
+
+c.drawString(50, y, "Rectangular Distribution : u = a / sqrt(3)")
+y -= 18
+
+c.drawString(50, y, "Normal Distribution : u = a / 2")
+y -= 18
+
+c.drawString(50, y, "Resolution : u = Resolution / (2*sqrt(3))")
+y -= 18
+
+c.drawString(50, y, "Repeatability : u = SD / sqrt(n)")
+y -= 18
+
+c.drawString(50, y, "Combined Uncertainty : Uc = sqrt(sum(ui^2))")
+y -= 18
+
+c.drawString(50, y, "Expanded Uncertainty : U = k x Uc")
+
 
 pdf_data = pdf_buffer.getvalue()
 
@@ -974,6 +1085,7 @@ st.download_button(
     file_name=f"{instrument}_{selected_range}_Report.pdf",
     mime="application/pdf"
 )
+
 
 st.subheader("Expanded Uncertainty")
 
