@@ -540,12 +540,6 @@ actual_temp = st.number_input(
 
 st.write("Actual Temperature =", actual_temp, "°C")
 TDEV = abs(actual_temp - 20)
-st.write(
-    "Temperature Deviation from 20°C =",
-    round(TDEV, 3),
-    "°C"
-)
-
 
 INSTRUMENT_CONSTANTS = {
 
@@ -600,43 +594,6 @@ TUncertainty = constants["TUncertainty"]
 Tdiff = constants["Tdiff"]
 
 
-st.write("Average CTE =", alpha_avg)
-
-
-st.write("Temperature Accuracy =", Taccuracy)
-st.write("Temperature Uncertainty =", TUncertainty)
-st.write("Temperature Difference =", Tdiff)
-u_temp_accuracy = Taccuracy * alpha_avg * L * 1000
-
-st.write(
-    "Temperature Sensor Accuracy Contribution (µm) =",
-    round(u_temp_accuracy, 3)
-)
-u_temp_uncertainty = TUncertainty * alpha_avg * L * 1000
-
-st.write(
-    "Temperature Sensor Uncertainty Contribution (µm) =",
-    round(u_temp_uncertainty, 3)
-)
-
-u_temp_difference = Tdiff * alpha_avg * L * 1000
-
-st.write(
-    "Temperature Difference Contribution (µm) =",
-    round(u_temp_difference, 3)
-)
-
-u_ref_temperature = TDEV * alpha_avg * L * 1000
-
-st.write(
-    "Reference Temperature Contribution (µm) =",
-    round(u_ref_temperature, 3)
-)
-
-st.subheader("Dynamic Temperature Contributors")
-
-
-
 if instrument in ["Micrometer", "Plain Plug Gauge"]:
 
     u_alpha_diff = alpha_diff * L * 1000
@@ -644,14 +601,6 @@ if instrument in ["Micrometer", "Plain Plug Gauge"]:
 else:
 
     u_alpha_diff = ((alpha_diff * 5 * L) / 100) * 1000
-
-
-
-
-st.write(
-    "Coefficient of Expansion Contribution (µm) =",
-    round(u_alpha_diff, 3)
-)
 
 
 st.subheader("Repeatability Readings")
@@ -1125,12 +1074,6 @@ for _, row in budget_std_df.iterrows():
 draw_footer(c, width, page_no)
 
 c.save()
-
-
-
-
-
-
 
 pdf_data = pdf_buffer.getvalue()
 
