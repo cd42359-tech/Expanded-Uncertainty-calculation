@@ -717,6 +717,12 @@ st.write("Repeatability Uncertainty =", round(u_repeatability, 4))
 
 st.write("DEBUG Std Dev =", std_dev)
 st.write("DEBUG Calculated Repeatability =", u_repeatability)
+st.subheader("Report Downloads")
+
+pdf_placeholder = st.empty()
+excel_placeholder = st.empty()
+
+
 
 budget_data = []
 
@@ -966,8 +972,8 @@ with pd.ExcelWriter(output, engine="openpyxl") as writer:
 
 excel_data = output.getvalue()
 
-st.download_button(
-    label="Download Budget Excel",
+excel_placeholder.download_button(
+    label="📊 Download Excel Report",
     data=excel_data,
     file_name=f"{instrument}_{selected_range}_Budget.xlsx",
     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
@@ -1154,8 +1160,8 @@ c.save()
 
 pdf_data = pdf_buffer.getvalue()
 
-st.download_button(
-    label="Download PDF Report",
+pdf_placeholder.download_button(
+    label="📄 Download PDF Report",
     data=pdf_data,
     file_name=f"{instrument}_{selected_range}_Report.pdf",
     mime="application/pdf"
