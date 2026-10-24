@@ -1055,6 +1055,28 @@ for _, row in summary_df.iterrows():
     y -= 25
 
 
+
+
+c.drawString(50, y, "Repeatability Readings")
+y -= 20
+
+c.drawString(70, y, f"R1: {r1:.4f} mm")
+c.drawString(180, y, f"R2: {r2:.4f} mm")
+c.drawString(290, y, f"R3: {r3:.4f} mm")
+c.drawString(400, y, f"R4: {r4:.4f} mm")
+c.drawString(510, y, f"R5: {r5:.4f} mm")
+
+y -= 25
+
+c.drawString(70, y, f"Mean: {mean_reading:.4f} mm")
+c.drawString(250, y, f"SD: {std_dev:.6f} mm")
+c.drawString(420, y, f"Urep: {u_repeatability:.4f} µm")
+
+y -= 30
+
+
+
+
 # =====================================
 # STANDARD UNCERTAINTY BUDGET
 # =====================================
@@ -1118,46 +1140,7 @@ for _, row in budget_std_df.iterrows():
 
     y -= 15
 
-# =====================================
-# FORMULA REFERENCE
-# =====================================
 
-y -= 25
-
-if y < 150:
-    draw_footer(c, width, page_no)
-
-    c.showPage()
-
-    page_no += 1
-
-    draw_header(c, width)
-
-    y = 680
-
-c.setFont("Helvetica-Bold", 12)
-c.drawString(50, y, "FORMULA REFERENCE")
-
-y -= 25
-
-c.setFont("Helvetica", 9)
-
-c.drawString(50, y, "Rectangular Distribution : u = a / sqrt(3)")
-y -= 18
-
-c.drawString(50, y, "Normal Distribution : u = a / 2")
-y -= 18
-
-c.drawString(50, y, "Resolution : u = Resolution / (2*sqrt(3))")
-y -= 18
-
-c.drawString(50, y, "Repeatability : u = SD / sqrt(n)")
-y -= 18
-
-c.drawString(50, y, "Combined Uncertainty : Uc = sqrt(sum(ui^2))")
-y -= 18
-
-c.drawString(50, y, "Expanded Uncertainty : U = k x Uc")
 
 draw_footer(c, width, page_no)
 
