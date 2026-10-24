@@ -917,6 +917,11 @@ with pd.ExcelWriter(output, engine="openpyxl") as writer:
         index=False
     )
 
+    summary_df.to_excel(
+    writer,
+    sheet_name="Summary",
+    index=False
+    )
 
 
 excel_data = output.getvalue()
