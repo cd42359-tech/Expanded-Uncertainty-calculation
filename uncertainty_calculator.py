@@ -500,6 +500,16 @@ sr_no = st.text_input(
     value=""
 )
 
+report_date = st.date_input(
+    "Report Date",
+    value=date.today()
+)
+
+equipment_used = st.text_input(
+    "Equipment Used",
+    value=""
+)
+
 
 budget = get_budget(instrument, selected_range)
 
@@ -1063,8 +1073,15 @@ for _, row in budget_df.iterrows():
         continue
 
     if y < 60:
-        c.showPage()
-        y = 800
+    draw_footer(c, width, page_no)
+
+    c.showPage()
+
+    page_no += 1
+
+    draw_header(c, width)
+
+    y = 680
 
     c.drawString(50, y, str(row["Contributor"])[:45])
     c.drawString(320, y, str(row["Distribution"]))
@@ -1110,8 +1127,15 @@ c.setFont("Helvetica", 8)
 for _, row in budget_std_df.iterrows():
 
     if y < 60:
-        c.showPage()
-        y = 800
+    draw_footer(c, width, page_no)
+
+    c.showPage()
+
+    page_no += 1
+
+    draw_header(c, width)
+
+    y = 680
 
     c.drawString(50, y, str(row["Contributor"])[:45])
     c.drawString(320, y, str(row["Distribution"]))
@@ -1127,8 +1151,15 @@ for _, row in budget_std_df.iterrows():
 y -= 25
 
 if y < 150:
+    draw_footer(c, width, page_no)
+
     c.showPage()
-    y = 800
+
+    page_no += 1
+
+    draw_header(c, width)
+
+    y = 680
 
 c.setFont("Helvetica-Bold", 12)
 c.drawString(50, y, "FORMULA REFERENCE")
