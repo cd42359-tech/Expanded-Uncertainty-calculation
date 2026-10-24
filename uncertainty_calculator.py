@@ -592,6 +592,11 @@ alpha_diff = constants["alpha_diff"]
 Taccuracy = constants["Taccuracy"]
 TUncertainty = constants["TUncertainty"]
 Tdiff = constants["Tdiff"]
+u_temp_accuracy = Taccuracy * alpha_avg * L * 1000
+u_temp_uncertainty = TUncertainty * alpha_avg * L * 1000
+u_temp_difference = Tdiff * alpha_avg * L * 1000
+u_ref_temperature = TDEV * alpha_avg * L * 1000
+
 
 
 if instrument in ["Micrometer", "Plain Plug Gauge"]:
