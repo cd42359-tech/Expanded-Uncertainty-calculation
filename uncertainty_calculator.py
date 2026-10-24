@@ -780,12 +780,6 @@ budget_df = pd.DataFrame(
     ]
 )
 
-st.subheader("Uncertainty Budget")
-
-st.dataframe(
-    budget_df,
-    use_container_width=True
-)
 
 
 standard_uncertainties = []
@@ -868,13 +862,7 @@ Uc = np.sqrt(
     )
 )
 
-st.subheader("Combined Standard Uncertainty")
 
-
-
-st.write(
-    f"Combined Standard Uncertainty (Uc) = {Uc:.4f} µm"
-)
 
 #st.write(
 #   f"Effective Degrees of Freedom (Veff) = {veff:.2f}"
@@ -893,21 +881,7 @@ veff = (
 
 
 
-
-st.subheader("Effective Degrees of Freedom (Veff)")
-
-if veff == float("inf"):
-    st.write("∞")
-else:
-    st.write(round(veff, 2))
-
-
 k = 2
-
-
-st.subheader("Coverage Factor (k)")
-st.write(round(k, 4))
-
 
 expanded_uncertainty = Uc * k
 
