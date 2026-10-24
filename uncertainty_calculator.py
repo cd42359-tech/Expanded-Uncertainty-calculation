@@ -505,10 +505,18 @@ report_date = st.date_input(
     value=date.today()
 )
 
-equipment_used = st.text_input(
-    "Equipment Used",
-    value=""
-)
+equipment_map = {
+    "Micrometer": "Slip Gauge Set",
+    "Caliper": "Caliper Checker / Master Rings / Slip Gauges",
+    "Plain Plug Gauge": "Comparator & Slip Gauges",
+    "Analog Dial": "DCT",
+    "Digital Dial": "ULM"
+}
+
+equipment_used = equipment_map.get(instrument, "")
+
+
+st.write("Equipment Used :", equipment_used)
 
 
 budget = get_budget(instrument, selected_range)
