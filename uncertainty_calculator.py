@@ -1073,15 +1073,15 @@ for _, row in budget_df.iterrows():
         continue
 
     if y < 60:
-    draw_footer(c, width, page_no)
+        draw_footer(c, width, page_no)
 
-    c.showPage()
+        c.showPage()
 
-    page_no += 1
+        page_no += 1
 
-    draw_header(c, width)
+        draw_header(c, width)
 
-    y = 680
+        y = 680
 
     c.drawString(50, y, str(row["Contributor"])[:45])
     c.drawString(320, y, str(row["Distribution"]))
@@ -1127,15 +1127,15 @@ c.setFont("Helvetica", 8)
 for _, row in budget_std_df.iterrows():
 
     if y < 60:
-    draw_footer(c, width, page_no)
+        draw_footer(c, width, page_no)
 
-    c.showPage()
+        c.showPage()
 
-    page_no += 1
+        page_no += 1
 
-    draw_header(c, width)
+        draw_header(c, width)
 
-    y = 680
+        y = 680
 
     c.drawString(50, y, str(row["Contributor"])[:45])
     c.drawString(320, y, str(row["Distribution"]))
