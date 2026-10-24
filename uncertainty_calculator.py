@@ -1054,61 +1054,6 @@ for _, row in summary_df.iterrows():
     )
     y -= 25
 
-# =====================================
-# TYPE B CONTRIBUTION SECTION
-# =====================================
-
-y -= 20
-
-c.setFont("Helvetica-Bold", 12)
-c.drawString(50, y, "TYPE B CONTRIBUTIONS")
-
-y -= 25
-
-c.setFont("Helvetica-Bold", 9)
-c.drawString(50, y, "Source")
-c.drawString(320, y, "Distribution")
-c.drawString(430, y, "DOF")
-c.drawString(500, y, "Value")
-
-y -= 15
-
-c.setFont("Helvetica", 8)
-
-for _, row in budget_df.iterrows():
-
-    if row["Contributor"] == "Repeatability":
-        continue
-
-    if y < 60:
-        draw_footer(c, width, page_no)
-
-        c.showPage()
-
-        page_no += 1
-
-        draw_header(c, width)
-
-        y = 680
-
-    c.drawString(50, y, str(row["Contributor"])[:45])
-    c.drawString(320, y, str(row["Distribution"]))
-    c.drawString(430, y, str(row["DOF"]))
-    c.drawString(500, y, f"{row['Value (µm)']:.3f}")
-
-    y -= 15
-
-
-draw_footer(c, width, page_no)
-
-c.showPage()
-
-page_no += 1
-
-draw_header(c, width)
-y = 680
-
-
 
 # =====================================
 # STANDARD UNCERTAINTY BUDGET
@@ -1125,8 +1070,9 @@ c.setFont("Helvetica-Bold", 8)
 
 c.drawString(50, y, "Contributor")
 c.drawString(320, y, "Distribution")
-c.drawString(430, y, "Std Unc")
-c.drawString(520, y, "DOF")
+c.drawString(380, y, "Value")
+c.drawString(470, y, "Std Unc")
+c.drawString(540, y, "DOF")
 
 y -= 15
 
@@ -1147,8 +1093,9 @@ for _, row in budget_std_df.iterrows():
 
     c.drawString(50, y, str(row["Contributor"])[:45])
     c.drawString(320, y, str(row["Distribution"]))
-    c.drawString(430, y, f"{row['Std Uncertainty (µm)']:.4f}")
-    c.drawString(520, y, str(row["DOF"]))
+    c.drawString(380, y, f"{row['Value (µm)']:.3f}")
+    c.drawString(470, y, f"{row['Std Uncertainty (µm)']:.4f}")
+    c.drawString(540, y, str(row["DOF"]))
 
     y -= 15
 
