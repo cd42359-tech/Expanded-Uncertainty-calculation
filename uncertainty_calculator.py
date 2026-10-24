@@ -1006,6 +1006,9 @@ for _, row in budget_df.iterrows():
 c.save()
 
 
+c.showPage()
+y = 800
+
 
 # =====================================
 # STANDARD UNCERTAINTY BUDGET
