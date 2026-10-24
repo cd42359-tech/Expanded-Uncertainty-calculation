@@ -1098,16 +1098,16 @@ for _, row in budget_std_df.iterrows():
     formula = ""
 
     if row["Contributor"] == "Repeatability":
-    formula = "SD/√n"
+        formula = "SD/√n"
 
     elif "Resolution" in str(row["Contributor"]):
-    formula = "a/(2√3)"
+        formula = "a/(2√3)"
 
     elif row["Distribution"] == "Rectangular":
-    formula = "a/√3"
+        formula = "a/√3"
 
     elif row["Distribution"] == "Normal":
-    formula = "a/2"
+        formula = "a/2"
 
     c.drawString(50, y, str(row["Contributor"])[:30])
     c.drawString(220, y, str(row["Distribution"]))
