@@ -494,6 +494,15 @@ selected_range = st.selectbox(
     list(MASTER_BUDGET[instrument].keys())
 )
 
+sr_no = st.text_input(
+    "Serial Number (Optional)",
+    value=""
+)
+
+
+
+
+
 budget = get_budget(instrument, selected_range)
 
 st.write(budget)
@@ -885,6 +894,9 @@ st.subheader("Final Summary")
 
 summary_df = pd.DataFrame({
     "Parameter": [
+        "Serial Number",
+        "Report Date",
+        "Equipment Used",
         "Instrument",
         "Range",
         "Measurement Size (mm)",
@@ -897,6 +909,9 @@ summary_df = pd.DataFrame({
         "Statement of Uncertainty"
     ],
     "Value": [
+        sr_no if sr_no else "NA",
+        str(report_date),
+        equipment_used if equipment_used else "NA",
         instrument,
         selected_range,
         round(L, 3),
