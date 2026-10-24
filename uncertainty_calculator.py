@@ -943,7 +943,6 @@ st.download_button(
 
 
 
-
 st.table(summary_df)
 
 pdf_buffer = BytesIO()
@@ -975,9 +974,6 @@ st.download_button(
     file_name=f"{instrument}_{selected_range}_Report.pdf",
     mime="application/pdf"
 )
-
-
-
 
 st.subheader("Expanded Uncertainty")
 
