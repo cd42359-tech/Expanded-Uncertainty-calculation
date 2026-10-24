@@ -948,14 +948,52 @@ st.table(summary_df)
 pdf_buffer = BytesIO()
 
 c = canvas.Canvas(pdf_buffer, pagesize=A4)
-c.setTitle("NABL Uncertainty Calculation Report")
 
-c.setFont("Helvetica-Bold", 14)
-c.drawString(50, 800, "NABL UNCERTAINTY CALCULATION REPORT")
 
+# ===== PDF HEADER =====
+
+width, height = A4
+
+# Left Logo - Cummins
+c.drawImage(
+    "Cummins Logo.jpg",
+    30, 730,
+    width=80,
+    height=80,
+    preserveAspectRatio=True,
+    mask='auto'
+)
+
+# Right Logo - NABL
+c.drawImage(
+    "Nabl logo.jpg",
+    470, 710,
+    width=90,
+    height=110,
+    preserveAspectRatio=True,
+    mask='auto'
+)
+
+# Header Text
+c.setFont("Helvetica-Bold", 22)
+c.drawCentredString(width/2, 810, "Cummins India Limited")
+
+c.setFont("Helvetica", 14)
+c.drawCentredString(width/2, 785, "Kothrud, Pune 411038")
+
+c.setFont("Helvetica-BoldOblique", 18)
+c.drawCentredString(width/2, 755, "Standards Laboratory")
+
+c.setFont("Helvetica-Bold", 16)
+c.drawCentredString(width/2, 725, "UNCERTAINTY CALCULATION REPORT")
+
+# Underline
+c.line(170, 718, 425, 718)
+
+# Start report content below header
 c.setFont("Helvetica", 11)
+y = 680
 
-y = 760
 
 for _, row in summary_df.iterrows():
     c.drawString(
