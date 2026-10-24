@@ -6,6 +6,7 @@ from io import BytesIO
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader
+from datetime import date
 
 
 
@@ -498,9 +499,6 @@ sr_no = st.text_input(
     "Serial Number (Optional)",
     value=""
 )
-
-
-
 
 
 budget = get_budget(instrument, selected_range)
