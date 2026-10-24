@@ -1069,8 +1069,9 @@ y -= 25
 c.setFont("Helvetica-Bold", 8)
 
 c.drawString(50, y, "Contributor")
-c.drawString(320, y, "Distribution")
-c.drawString(380, y, "Value")
+c.drawString(220, y, "Distribution")
+c.drawString(320, y, "Value")
+c.drawString(390, y, "Formula")
 c.drawString(470, y, "Std Unc")
 c.drawString(540, y, "DOF")
 
@@ -1091,9 +1092,27 @@ for _, row in budget_std_df.iterrows():
 
         y = 680
 
-    c.drawString(50, y, str(row["Contributor"])[:45])
-    c.drawString(320, y, str(row["Distribution"]))
-    c.drawString(380, y, f"{row['Value (µm)']:.3f}")
+
+for _, row in budget_std_df.iterrows():
+
+    formula = ""
+
+    if row["Contributor"] == "Repeatability":
+    formula = "SD/√n"
+
+    elif "Resolution" in str(row["Contributor"]):
+    formula = "a/(2√3)"
+
+    elif row["Distribution"] == "Rectangular":
+    formula = "a/√3"
+
+    elif row["Distribution"] == "Normal":
+    formula = "a/2"
+
+    c.drawString(50, y, str(row["Contributor"])[:30])
+    c.drawString(220, y, str(row["Distribution"]))
+    c.drawString(320, y, f"{row['Value (µm)']:.3f}")
+    c.drawString(390, y, formula)
     c.drawString(470, y, f"{row['Std Uncertainty (µm)']:.4f}")
     c.drawString(540, y, str(row["DOF"]))
 
